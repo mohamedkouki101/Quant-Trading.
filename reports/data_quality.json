@@ -1,0 +1,152 @@
+{
+  "factor_daily_dates_equal_industry_daily_dates": true,
+  "factor_missing": {
+    "daily": {
+      "hml": 0,
+      "mkt_rf": 0,
+      "mom": 101,
+      "rf": 0,
+      "smb": 0,
+      "st_rev": 0
+    },
+    "monthly": {
+      "hml": 0,
+      "mkt_rf": 0,
+      "mom": 6,
+      "rf": 0,
+      "smb": 0,
+      "st_rev": 0
+    }
+  },
+  "processed": {
+    "factors_daily.parquet": {
+      "bytes": 432995,
+      "first_date": "1926-07-01",
+      "last_date": "2026-09-30",
+      "rows": 26338,
+      "sha256": "1e41e737e6d1eb713208b5ed7ec090177c771c82c0ac8f3ccfac8e79ebfa0ad2"
+    },
+    "factors_monthly.parquet": {
+      "bytes": 45802,
+      "first_date": "1926-07-31",
+      "last_date": "2026-09-30",
+      "rows": 1203,
+      "sha256": "2a66d3d1c7fcaadc3dab62d3e9f4f4ac807b527035886d32eecd6f620d3773f0"
+    },
+    "industry_daily.parquet": {
+      "bytes": 5832470,
+      "first_date": "1926-07-01",
+      "last_date": "2026-09-30",
+      "rows": 2581124,
+      "sha256": "110a91bcb34f4d30894742d38a095e602e05f21a82ba4e3a213151d2c224d387"
+    },
+    "industry_monthly.parquet": {
+      "bytes": 752548,
+      "first_date": "1926-07-31",
+      "last_date": "2026-09-30",
+      "rows": 117894,
+      "sha256": "0c2350918adcab6b1306aab3c817e6c07673cdcf86e5777d3eae5a8a619ac690"
+    }
+  },
+  "rules": {
+    "rule2_factors_daily": {
+      "first_date": "1926-07-01",
+      "last_date": "2026-09-30",
+      "n_dates": 26338,
+      "n_saturdays": 1158
+    },
+    "rule2_factors_monthly": {
+      "first_date": "1926-07-31",
+      "last_date": "2026-09-30",
+      "n_dates": 1203
+    },
+    "rule2_industry_daily": {
+      "first_date": "1926-07-01",
+      "last_date": "2026-09-30",
+      "n_dates": 26338,
+      "n_saturdays": 1158
+    },
+    "rule2_industry_monthly": {
+      "first_date": "1926-07-31",
+      "last_date": "2026-09-30",
+      "n_dates": 1203
+    },
+    "rule3_daily_ew": {
+      "missing_by_asset": {
+        "Books": 1,
+        "FabPr": 10420,
+        "Gold": 10420,
+        "Guns": 10420,
+        "Hlth": 11903,
+        "LabEq": 1,
+        "MedEq": 1,
+        "Paper": 927,
+        "PerSv": 315,
+        "Rubbr": 1495,
+        "Soda": 10420,
+        "Softw": 10925,
+        "Toys": 2
+      },
+      "n_missing": 67250
+    },
+    "rule3_daily_vw": {
+      "missing_by_asset": {
+        "Books": 1,
+        "FabPr": 10420,
+        "Gold": 10420,
+        "Guns": 10420,
+        "Hlth": 11903,
+        "LabEq": 1,
+        "MedEq": 1,
+        "Paper": 927,
+        "PerSv": 315,
+        "Rubbr": 1495,
+        "Soda": 10420,
+        "Softw": 10925,
+        "Toys": 2
+      },
+      "n_missing": 67250
+    },
+    "rule3_monthly_ew": {
+      "missing_by_asset": {
+        "FabPr": 444,
+        "Gold": 444,
+        "Guns": 444,
+        "Hlth": 516,
+        "Paper": 36,
+        "PerSv": 12,
+        "Rubbr": 60,
+        "Soda": 444,
+        "Softw": 468
+      },
+      "n_missing": 2868
+    },
+    "rule3_monthly_vw": {
+      "missing_by_asset": {
+        "FabPr": 444,
+        "Gold": 444,
+        "Guns": 444,
+        "Hlth": 516,
+        "Paper": 36,
+        "PerSv": 12,
+        "Rubbr": 60,
+        "Soda": 444,
+        "Softw": 468
+      },
+      "n_missing": 2868
+    },
+    "rule5_daily_ew": {
+      "hi": 1.0,
+      "lo": -0.5,
+      "n_flagged": 1,
+      "n_flagged_test_period": 0
+    },
+    "rule5_daily_vw": {
+      "hi": 1.0,
+      "lo": -0.5,
+      "n_flagged": 3,
+      "n_flagged_test_period": 0
+    }
+  },
+  "source_vintage": "crsp=202609;sha256=b9d36d571e968d71"
+}

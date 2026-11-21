@@ -1,0 +1,20 @@
+# Pre-registered defaults (PREREGISTRATION.md §4). Strategy files override what they need.
+# Hypothetical backtests only, not investment advice.
+universe: kf49
+weighting: vw              # value-weighted industry returns; ew is an ablation
+start: 1926-07-01          # research period (locked test 2006-01 .. 2026-09 is masked in code)
+end: 2005-12-31
+rebalance: month_end       # last trading day of each month
+lookback_months: 12        # 12-1 momentum: months t-12 .. t-2 of the holding month t
+skip_months: 1
+holding_months: 1
+n_per_leg: 10              # top 10 long, bottom 10 short, equal weight within each leg
+signal_sign: 1
+vol_target: 0.10           # B4: 10% annualised
+vol_window: 126            # B4: trailing trading days of unscaled strategy returns
+leverage_cap: 2.0
+cost:
+  model: flat
+  bps: 10.0                # headline one-way cost; the grid is {0, 5, 10, 25, 50}
+fill_lag: 1                # signal at close t, fill at close t+1, returns from t+2
+seed: 7

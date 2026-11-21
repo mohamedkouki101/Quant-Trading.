@@ -1,0 +1,6 @@
+# B5: 1-month industry signal. The sign is chosen on the research period in P4 (H4 is
+# two-sided); +1 = continuation is a placeholder until then.
+strategy: b5
+lookback_months: 1
+skip_months: 0
+signal_sign: 1

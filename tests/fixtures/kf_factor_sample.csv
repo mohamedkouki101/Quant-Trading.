@@ -1,0 +1,14 @@
+This file was created using the 202609 CRSP database.  It
+Missing data are indicated by -99.99 or -999.
+
+,Mom
+202301,   1.50
+202302,  -99.99
+202303,   2.00
+
+Annual Factors:
+January-December 
+,Mom
+2023,  12.00
+
+Copyright 2026 Eugene F. Fama and Kenneth R. French

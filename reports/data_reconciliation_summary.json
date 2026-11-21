@@ -1,0 +1,239 @@
+{
+  "ew": {
+    "research": {
+      "first_month": "1926-07-31",
+      "last_month": "2005-12-31",
+      "max_abs_difference": 3.2629819159353755,
+      "min_share": 0.995,
+      "n_both_missing": 2868,
+      "n_compared": 43878,
+      "n_months": 954,
+      "n_one_side_missing": 35,
+      "n_outside_tol": 42792,
+      "n_within_tol": 1051,
+      "share_within_tol": 0.023952778157618853,
+      "tol": 0.0001
+    },
+    "test_period": {
+      "n_both_missing": 0,
+      "n_compared": 12201,
+      "n_one_side_missing": 0,
+      "n_outside_tol": 11910,
+      "n_within_tol": 291
+    }
+  },
+  "largest_research_mismatches": [
+    {
+      "asset": "Coal",
+      "daily_compounded": 3.1959819159353753,
+      "difference": 3.2629819159353755,
+      "month": "1932-12",
+      "monthly": -0.067,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Whlsl",
+      "daily_compounded": 1.405464912496463,
+      "difference": 0.9312649124964631,
+      "month": "1933-04",
+      "monthly": 0.4742,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Whlsl",
+      "daily_compounded": 0.9197424466388835,
+      "difference": 0.7822424466388835,
+      "month": "1932-09",
+      "monthly": 0.1375,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Toys",
+      "daily_compounded": 1.4647336204862502,
+      "difference": 0.7414336204862503,
+      "month": "1933-05",
+      "monthly": 0.7232999999999999,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Coal",
+      "daily_compounded": 0.9668832648098995,
+      "difference": 0.6239832648098995,
+      "month": "1932-07",
+      "monthly": 0.3429,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Clths",
+      "daily_compounded": 1.3750428461686202,
+      "difference": 0.5334428461686201,
+      "month": "1932-08",
+      "monthly": 0.8416,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Clths",
+      "daily_compounded": 0.8782048259762862,
+      "difference": 0.44710482597628626,
+      "month": "1932-01",
+      "monthly": 0.4311,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Mines",
+      "daily_compounded": 0.6384296107744416,
+      "difference": 0.4299296107744416,
+      "month": "1993-10",
+      "monthly": 0.20850000000000002,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Fun",
+      "daily_compounded": 1.4163415238702117,
+      "difference": 0.3957415238702118,
+      "month": "1933-04",
+      "monthly": 1.0206,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Books",
+      "daily_compounded": 1.2357974612273197,
+      "difference": 0.39469746122731975,
+      "month": "1932-08",
+      "monthly": 0.8411,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Whlsl",
+      "daily_compounded": 0.3607948545931319,
+      "difference": 0.3943948545931319,
+      "month": "1932-11",
+      "monthly": -0.0336,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Boxes",
+      "daily_compounded": 0.8643008264131482,
+      "difference": 0.3896008264131482,
+      "month": "1933-04",
+      "monthly": 0.4747,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Coal",
+      "daily_compounded": 0.27380227892480913,
+      "difference": 0.37430227892480916,
+      "month": "1932-11",
+      "monthly": -0.1005,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Fun",
+      "daily_compounded": 0.4546553028902398,
+      "difference": 0.3722553028902398,
+      "month": "1932-02",
+      "monthly": 0.0824,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Clths",
+      "daily_compounded": 0.15756125472879234,
+      "difference": 0.37086125472879233,
+      "month": "1932-04",
+      "monthly": -0.2133,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Other",
+      "daily_compounded": 0.4881261521347624,
+      "difference": 0.3609261521347624,
+      "month": "1940-08",
+      "monthly": 0.1272,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Ships",
+      "daily_compounded": 0.8223797726887505,
+      "difference": 0.3601797726887505,
+      "month": "1933-04",
+      "monthly": 0.4622,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Coal",
+      "daily_compounded": 0.5966760206530295,
+      "difference": 0.34787602065302947,
+      "month": "1933-03",
+      "monthly": 0.2488,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Coal",
+      "daily_compounded": 0.11012238059390067,
+      "difference": 0.3454223805939007,
+      "month": "1931-12",
+      "monthly": -0.2353,
+      "weighting": "ew",
+      "within_tol": false
+    },
+    {
+      "asset": "Cnstr",
+      "daily_compounded": 0.2205852237378152,
+      "difference": 0.34018522373781523,
+      "month": "1942-12",
+      "monthly": -0.11960000000000001,
+      "weighting": "ew",
+      "within_tol": false
+    }
+  ],
+  "min_share": 0.995,
+  "n_research_mismatches": 66526,
+  "overall": {
+    "n_compared": 112158,
+    "n_within_tol": 27604,
+    "passed": false,
+    "share_within_tol": 0.24611708482676226
+  },
+  "tol": 0.0001,
+  "vw": {
+    "research": {
+      "first_month": "1926-07-31",
+      "last_month": "2005-12-31",
+      "max_abs_difference": 0.2074253760033967,
+      "min_share": 0.995,
+      "n_both_missing": 2868,
+      "n_compared": 43878,
+      "n_months": 954,
+      "n_one_side_missing": 35,
+      "n_outside_tol": 23664,
+      "n_within_tol": 20179,
+      "share_within_tol": 0.45988878253338805,
+      "tol": 0.0001
+    },
+    "test_period": {
+      "n_both_missing": 0,
+      "n_compared": 12201,
+      "n_one_side_missing": 0,
+      "n_outside_tol": 6118,
+      "n_within_tol": 6083
+    }
+  }
+}

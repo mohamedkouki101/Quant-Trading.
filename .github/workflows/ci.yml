@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install the locked environment
+        run: uv sync --frozen
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Format check
+        run: uv run ruff format --check .
+
+      - name: Type check
+        run: uv run mypy src
+
+      - name: Tests (synthetic and unit only; real data is never in the repo)
+        run: uv run pytest -m "not data" --cov=momlab --cov-report=html --cov-report=term --cov-fail-under=85
+
+      - name: Core files at 100% line coverage (engine, execution, costs, data handler)
+        run: uv run coverage report --include="*/momlab/engine.py,*/momlab/execution.py,*/momlab/costs.py,*/momlab/data/handler.py" --fail-under=100
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-html
+          path: reports/coverage

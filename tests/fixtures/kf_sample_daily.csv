@@ -1,0 +1,21 @@
+This file was created using the 202609 CRSP database.
+Missing data are indicated by -99.99 or -999.
+
+
+  Average Value Weighted Returns -- Daily
+,Agric,Food,Fun
+20230130,   0.10,  -0.20, -99.99
+20230131,   0.20,   0.30,   -999
+20230201,   1.00, 150.00,  -0.10
+20230228,   0.50,   0.40,   0.30
+20230301,  -0.30,   0.20,   0.10
+
+  Average Equal Weighted Returns -- Daily
+,Agric,Food,Fun
+20230130,   0.15,  -0.25, -99.99
+20230131,   0.25,   0.35,   0.05
+20230201,   0.90,   0.10,  -0.20
+20230228,   0.45,   0.35,   0.25
+20230301,  -0.35,   0.15,   0.05
+
+Copyright 2026 Eugene F. Fama and Kenneth R. French

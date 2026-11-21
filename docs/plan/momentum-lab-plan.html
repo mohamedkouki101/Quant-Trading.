@@ -1,0 +1,2592 @@
+<title>momentum-lab plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a research memo with a sticky tab rail; ledger-paper neutrals with one ink-blue accent */
+:root{
+  --bg:#f7f8f6; --surface:#ffffff; --fg:#1c2321; --muted:#5b6662; --rule:#d9dfdb; --accent:#1f4f8f; --accent-soft:#e6edf7; --crit:#a3531a;
+  --display:"IBM Plex Serif",Georgia,serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121615;--surface:#1a201e;--fg:#e3e8e5;--muted:#9aa5a0;--rule:#2d3532;--accent:#8db4ea;--accent-soft:#1e2a3a;--crit:#e3a06a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121615;--surface:#1a201e;--fg:#e3e8e5;--muted:#9aa5a0;--rule:#2d3532;--accent:#8db4ea;--accent-soft:#1e2a3a;--crit:#e3a06a;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header{padding-block:28px 8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1100px;margin:0 auto}
+header .eyebrow{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header h1{font:600 clamp(26px,4vw,36px)/1.15 var(--display);margin:6px 0 4px;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:70ch}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+nav .in{max-width:1100px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-weight:500;padding:6px 12px;border-radius:6px}
+nav a:hover{color:var(--fg)}
+nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+nav a:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+main{max-width:1100px;margin:0 auto;padding-block:16px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.doc{min-width:0}
+.doc > *{max-width:78ch}
+.doc > .scroll{max-width:100%}
+.doc h1{font:600 28px/1.2 var(--display);text-wrap:balance;margin:12px 0}
+.doc h2{font:600 22px/1.25 var(--display);margin:40px 0 10px;padding-top:16px;border-top:1px solid var(--rule);text-wrap:balance}
+.doc h3{font:600 16px/1.3 var(--body);margin:24px 0 8px}
+.doc a{color:var(--accent);text-underline-offset:2px}
+.doc hr{border:0;border-top:1px solid var(--rule);margin:32px 0}
+.scroll{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;font-size:13.5px;min-width:100%;background:var(--surface)}
+th,td{border:1px solid var(--rule);padding:6px 9px;text-align:left;vertical-align:top}
+th{font-weight:600;background:var(--accent-soft)}
+td{font-variant-numeric:tabular-nums}
+code{font:13px var(--mono);background:var(--accent-soft);padding:1px 4px;border-radius:3px}
+pre{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:12px 14px;margin:0}
+pre code{background:none;padding:0;font-size:12.5px;line-height:1.5}
+pre.mermaid{background:var(--surface)}
+.crit{color:var(--crit);font-weight:600}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+<header>
+  <div class="eyebrow">Phase 2 · plan only · awaiting approval · 6 Nov 2026</div>
+  <h1>momentum-lab: flagship project plan</h1>
+  <p>An event-driven backtest engine you write and verify, used to test vol-scaled industry momentum against costs, a locked 2006–2026 test and an ML ranker, with a grouped feature-importance study.</p>
+</header>
+<nav aria-label="Plan sections"><div class="in"><a href="#plan" data-tab="plan">Plan</a><a href="#roadmap" data-tab="roadmap">Roadmap</a><a href="#inventory" data-tab="inventory">Research inventory</a><a href="#audience" data-tab="audience">Screener signals</a><a href="#interview" data-tab="interview">Interview kit</a><a href="#learning" data-tab="learning">Learning path</a></div></nav>
+<main><section id="plan" class="doc" ><h1>momentum-lab: flagship project plan (Phase 2)</h1>
+<p>Status: <strong>plan only, awaiting your approval. Nothing is implemented.</strong>
+Date: 2026-11-06. Companion files: <a href="#inventory">RESEARCH_INVENTORY.md</a>, <a href="#audience">docs/TARGET_AUDIENCE.md</a>, <a href="#roadmap">docs/ROADMAP.md</a> (full task table), <a href="#interview">docs/INTERVIEW_KIT.md</a>, <a href="#learning">docs/LEARNING_PATH.md</a>.</p>
+<h2>Assumptions (stated, then I continued)</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Assumed</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Original requirements</td>
+<td>The Phase 1 research doc ("De Phase 1")</td>
+<td>Only prior research found</td>
+</tr>
+<tr>
+<td>Target roles</td>
+<td>Primary: quant research, quant trading (research side). Secondary: data science, risk/model validation, systematic asset management</td>
+<td>Placeholder left unfilled</td>
+</tr>
+<tr>
+<td>Budget</td>
+<td>Free tier only: free data, free hosting, free CI</td>
+<td>Placeholder left unfilled; drops Phase 1's optional $30 tier</td>
+</tr>
+<tr>
+<td>Time and skill</td>
+<td>No limit; learns fast</td>
+<td>Your brief</td>
+</tr>
+<tr>
+<td>Language and OS</td>
+<td>Python 3.13 on Windows (your machine) and Linux (CI)</td>
+<td>Version constraints in RESEARCH_INVENTORY §4</td>
+</tr>
+<tr>
+<td>Folder</td>
+<td>No local folder attached, so these files live in the project's shared files. They become the repo's <code>docs/plan/</code> when you create the repo</td>
+<td>Ask only if wrong</td>
+</tr>
+</tbody>
+</table></div>
+<p>Confidence tags: <strong>High</strong> = primary source opened (today or in Phase 1) says it directly. <strong>Medium</strong> = secondary source, or my inference from primary sources. <strong>Low</strong> = weak source. <strong>Unverified</strong> = my engineering judgement, no source. Sources from Phase 1 were opened on 2026-11-06 by the Phase 1 thread; sources marked "(today)" were opened by me.</p>
+<hr />
+<h2>1. Product definition</h2>
+<p><strong>Problem.</strong> Momentum is one of the best-documented return patterns, yet most backtests of it are untrustworthy: look-ahead, survivorship, ignored costs and silent selection over many variants. The product answers one question honestly: <em>does vol-scaled industry momentum still earn a premium after costs, and does a machine-learning ranker add anything beyond it?</em></p>
+<p><strong>The product is the engine.</strong> The strategy and feature study are the first "customers" of a small, verified, event-driven backtest engine whose design makes look-ahead impossible by construction.</p>
+<p><strong>User.</strong> (1) An interviewer probing your judgement in 10 minutes. (2) You, as a researcher who needs results you can defend. (3) Secondary: a student who wants a readable reference engine.</p>
+<p><strong>MVP (core):</strong>
+1. Event-driven engine on a daily clock with data handler, signal generator, portfolio/risk, execution simulator, cost model and analytics, plus a vectorised reference oracle.
+2. Verification triangle: hand-computed trade tests, synthetic known-answer markets, cross-check with bt 1.4.1.
+3. Industry leg: Ken French 49 industries 1926–2026, baselines, vol-scaled 12-1 momentum, cost sweep, robustness, locked test 2006-01 to 2026-09.
+4. ML leg: ridge and LightGBM rankers, walk-forward and CPCV, trial ledger with DSR, PBO and haircut Sharpe.
+5. Feature study: grouped permutation importance and SHAP, stability across folds.
+6. ETF leg: 9 original SPDR sector ETFs, daily, with spread, commission, borrow and capacity.
+7. README, design doc, model card, coverage report, performance profile, Streamlit app with a static fallback.</p>
+<p><strong>Stretch (after the cut line in §6):</strong> CPCV path distribution in the app, numba-accelerated event loop, JKP global industry robustness (CC BY-NC data), Alpaca paper-trading shadow run, blog post, LambdaRank and monotone-constraint ablations.</p>
+<p><strong>Explicit non-goals:</strong> stock-level strategies (no free survivorship-free stock data), intraday or HFT, options, LLM or news features (look-ahead risk, Phase 1 §3), live trading with real money, deep learning models, any claim of investable performance.</p>
+<p><strong>60-second demo script</strong> (app open on the Overview page):
+1. (0–10 s) "This is momentum-lab: a backtest engine I wrote and verified, used to test whether industry momentum still works after costs."
+2. (10–25 s) Engine page: "Every trade is decided on data up to today's close and filled at the next close. The design makes peeking impossible, and three independent checks agree to within [x] bp a year: hand-computed trades, synthetic markets with a known answer, and the open-source bt library."
+3. (25–40 s) Strategy page, drag the cost slider from 0 to 50 bp: "Here is the edge shrinking with costs. Break-even is [y] bp. Short-term reversal dies at [z] bp."
+4. (40–52 s) Robustness page: "I logged all [T] configurations I tried. The deflated Sharpe ratio, which corrects for that search, is [d]." Feature page: "the ML model's importance is dominated by [group], stable in [k] of [K] folds."
+5. (52–60 s) "The result I'm proudest of is the one that failed: [state the null or negative result]. Everything here is a hypothetical backtest, not advice."</p>
+<hr />
+<h2>2. Pre-registered success criteria</h2>
+<p>Committed as <code>PREREGISTRATION.md</code> (v1) <strong>before</strong> any strategy result is computed (task S-4). A v2 addendum freezes the final configurations before the locked test is opened (task T-1). Changing either after the fact is logged as a deviation in the README.</p>
+<h3>2.1 Hypotheses</h3>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Hypothesis (why the edge might exist)</th>
+<th>Primary metric</th>
+<th>What would kill it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H1</td>
+<td>Vol-scaled 12-1 industry momentum, long top 10 / short bottom 10 of 49, earns a positive return net of 10 bp one-way costs. Mechanism: slow diffusion of industry-wide news and investor under-reaction; risk-based stories (crash exposure) also exist (<a target="_blank" rel="noopener" href="https://ideas.repec.org/a/bla/jfinan/v54y1999i4p1249-1290.html">Moskowitz &amp; Grinblatt 1999</a>; <a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20439">Daniel &amp; Moskowitz 2016</a>). High (that the effect was documented); Medium (mechanism).</td>
+<td>Annualised net Sharpe and Newey-West t-stat of monthly net returns</td>
+<td>Arbitrage after publication (<a target="_blank" rel="noopener" href="https://academicnewsletter.sufe.edu.cn/info/359722">McLean &amp; Pontiff</a>), crowding, costs above break-even, crash in rebounds</td>
+</tr>
+<tr>
+<td>H2</td>
+<td>Vol scaling raises Sharpe and cuts the worst month vs unscaled 12-1 (<a target="_blank" rel="noopener" href="https://econpapers.repec.org/RePEc:eee:jfinec:v:116:y:2015:i:1:p:111-120">Barroso &amp; Santa-Clara 2015</a>). High.</td>
+<td>Sharpe difference (scaled minus unscaled), worst month</td>
+<td>Vol forecasts failing in sudden regime shifts</td>
+</tr>
+<tr>
+<td>H3</td>
+<td>A LightGBM ranker on 19 features beats vol-scaled 12-1 net of costs. Pre-registered expectation: <strong>probably not by much</strong> (<a target="_blank" rel="noopener" href="https://www.nber.org/papers/w34104">Nagel 2025</a>). Medium.</td>
+<td>Net Sharpe difference with a block-bootstrap CI</td>
+<td>Nagel's critique; overfitting; higher turnover eating the gain</td>
+</tr>
+<tr>
+<td>H4</td>
+<td>The 1-month industry signal has a non-zero sign (two-sided: continuation or reversal). Unverified which.</td>
+<td>Long-short return t-stat at 0 and 10 bp</td>
+<td>Costs; it is a known liquidity effect at stock level (<a target="_blank" rel="noopener" href="https://ideas.repec.org/a/bla/jfinan/v61y2006i5p2365-2394.html">Avramov et al. 2006</a>)</td>
+</tr>
+<tr>
+<td>H5</td>
+<td>In the ML model, the momentum feature group ranks first by grouped held-out permutation importance in most folds, consistent with <a target="_blank" rel="noopener" href="https://nber.org/papers/w25398">Gu, Kelly &amp; Xiu 2020</a>. High (their finding); the transfer to industries is Unverified.</td>
+<td>Share of folds where momentum group ranks first</td>
+<td>Importance spread evenly or unstable across folds</td>
+</tr>
+<tr>
+<td>H6</td>
+<td>The edge survives on tradable sector ETFs at measured costs. Unverified.</td>
+<td>ETF net Sharpe at measured spread + borrow</td>
+<td>Only 9 assets; short sample; higher costs</td>
+</tr>
+</tbody>
+</table></div>
+<h3>2.2 Baselines (every model must be compared to all of these, net of the same costs)</h3>
+<p>B0 cash (risk-free from Ken French daily RF); B1 equal-weight all industries, monthly rebalance; B2 published Ken French Mom factor (reference, stock-level); B3 plain 12-1 industry momentum; B4 vol-scaled 12-1; B5 1-month signal (sign chosen on research period only); B6 shuffled-label LightGBM (null model); B7 ridge regression on the same features.</p>
+<h3>2.3 Thresholds (set now; never promised as outcomes)</h3>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Threshold</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Signal exists" (research period 1927–2005)</td>
+<td>Newey-West t &gt; 3.0 on net monthly returns at 10 bp (<a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20592">Harvey, Liu &amp; Zhu</a>, High)</td>
+<td>t between 2 and 3 is reported as "suggestive"</td>
+</tr>
+<tr>
+<td>"Survives selection"</td>
+<td>DSR ≥ 0.95 using all trials in the ledger (<a target="_blank" rel="noopener" href="https://papers.ssrn.com/abstract=2460551">Bailey &amp; López de Prado</a>, High); PBO &lt; 0.5 (<a target="_blank" rel="noopener" href="https://papers.ssrn.com/abstract=2326253">Bailey et al.</a>, High)</td>
+<td></td>
+</tr>
+<tr>
+<td>"Holds out of sample" (locked test 2006-01 to 2026-09)</td>
+<td>Point estimate of net Sharpe &gt; 0 and the 90% block-bootstrap CI reported; no significance claim required</td>
+<td>20 years is short for a Sharpe test; Unverified judgement</td>
+</tr>
+<tr>
+<td>"ML adds value" (H3)</td>
+<td>Lower bound of 90% CI of Sharpe difference (ML minus B4) &gt; 0 in research walk-forward <strong>and</strong> point estimate &gt; 0 in test</td>
+<td></td>
+</tr>
+<tr>
+<td>"Engine verified"</td>
+<td>Event engine vs vectorised oracle: daily returns equal to 1e-10. Engine vs bt: annualised return within 5 bp/yr at zero cost, daily return correlation &gt; 0.9999</td>
+<td>Tolerances are Unverified judgement; differences are explained, not tuned away</td>
+</tr>
+<tr>
+<td>Trial budget</td>
+<td>At most 300 logged configurations on the research period, all counted in DSR</td>
+<td>Number is my judgement</td>
+</tr>
+</tbody>
+</table></div>
+<h3>2.4 What a null or negative result looks like, and how to present it</h3>
+<ul>
+<li><strong>H1 fails in test</strong> (Sharpe ≤ 0 after 2006): present as "consistent with post-publication decay", show the pre/post-1993 and pre/post-2006 split, and the crash months. Headline becomes "the engine and the test design caught a decayed anomaly".</li>
+<li><strong>H3 fails</strong> (ML ≈ vol-scaled momentum): headline "a gradient-boosted ranker rediscovers momentum; complexity added turnover, not alpha", with SHAP dependence plots showing it. This is the Nagel result and a strong interview story.</li>
+<li><strong>DSR &lt; 0.95</strong>: report it next to the raw Sharpe, with the trial count. Never drop trials to raise it.</li>
+<li><strong>Engine disagreement with bt</strong> above tolerance: listed as an open issue with the decomposition (§9.3), not hidden.</li>
+<li>Presentation rule: each result table shows gross, net, DSR, trial count and period together. Text uses "hypothetical backtest" on every page.</li>
+</ul>
+<hr />
+<h2>3. Architecture</h2>
+<h3>3.1 Component diagram</h3>
+<div class="scroll"><pre class="mermaid">flowchart LR
+  subgraph Data
+    KF[Ken French downloader] --&gt; RAW[(data/raw  gitignored)]
+    ETF[Tiingo / Alpaca downloader] --&gt; RAW
+    RAW --&gt; CLEAN[cleaning + validation] --&gt; PANEL[(data/processed  parquet + manifest hash)]
+  end
+  subgraph Engine[&quot;Engine (event-driven)&quot;]
+    DH[DataHandler&lt;br/&gt;clock + as-of view] --&gt;|MarketEvent| Q{{EventQueue}}
+    Q --&gt; SG[SignalGenerator] --&gt;|SignalEvent target weights| Q
+    Q --&gt; PR[Portfolio + RiskManager] --&gt;|OrderEvent| Q
+    Q --&gt; EX[ExecutionSimulator + CostModel] --&gt;|FillEvent| Q
+    Q --&gt; PR
+    PR --&gt; LEDGER[(trade + position ledger)]
+  end
+  PANEL --&gt; DH
+  FEAT[features.py] --&gt; SG
+  MODELS[models: rules, ridge, LightGBM] --&gt; SG
+  CV[validation: walk-forward, CPCV, purge, embargo] --&gt; MODELS
+  LEDGER --&gt; AN[analytics: metrics, DSR, PBO, factor regression]
+  AN --&gt; EXP[(experiments/ledger.jsonl)]
+  AN --&gt; IMP[importance: permutation, SHAP, clusters]
+  ORACLE[vectorised oracle] -.cross-check.-&gt; AN
+  BT[bt 1.4.1] -.cross-check.-&gt; AN
+  AN --&gt; RES[(results/*.parquet)]
+  IMP --&gt; RES
+  RES --&gt; APP[Streamlit app] 
+  RES --&gt; REPORT[static HTML report]
+</pre></div>
+<h3>3.2 Data flow and timing (the no-look-ahead contract)</h3>
+<p>Clock = trading days from the daily panel. For each bar <code>t</code> (a trading day close):</p>
+<ol>
+<li><code>DataHandler.advance()</code> moves the cursor to <code>t</code> and emits <code>MarketEvent(t)</code>.</li>
+<li><code>Portfolio.on_market(t)</code> marks positions to market with returns <em>of day t</em> (positions were set before <code>t</code>).</li>
+<li>If <code>t</code> is a rebalance date (last trading day of the month), <code>SignalGenerator.on_market</code> receives an <code>AsOfView</code> that can only return rows with timestamp ≤ <code>t</code>, and emits <code>SignalEvent(t, target_weights)</code>.</li>
+<li><code>Portfolio.on_signal</code> applies risk rules (vol scaling, gross/net limits) and emits <code>OrderEvent(t, delta_weights)</code> sized from positions <strong>after</strong> step 2.</li>
+<li><code>ExecutionSimulator.on_order</code> queues the order; fill happens at the close of the <strong>next</strong> bar <code>t+1</code> (<code>fill_lag=1</code>, configurable ≥ 1; 0 is forbidden for daily data). Costs are charged on traded notional at the fill.</li>
+<li><code>FillEvent(t+1)</code> updates positions; they earn returns from <code>t+2</code> onward.</li>
+</ol>
+<p>How the design enforces no look-ahead:
+- <code>AsOfView</code> is the only data accessor given to strategy code; it wraps a NumPy array with an integer cursor and raises <code>LookAheadError</code> on any index &gt; cursor. There is no <code>.df</code> attribute to reach around it.
+- Features are computed inside the strategy from the view, or precomputed by <code>features.py</code> with an explicit <code>available_at</code> column; <code>AsOfView</code> drops rows with <code>available_at &gt; t</code>.
+- <code>fill_lag ≥ 1</code> is validated by pydantic in config.
+- Each event carries <code>timestamp</code>; the queue asserts that events are processed in non-decreasing time and that <code>FillEvent.timestamp &gt; OrderEvent.timestamp</code>.
+- Tests (§9.1): the <strong>poisoned-future test</strong> replaces all data after <code>t</code> with NaN and with +1000% returns and asserts that every decision up to <code>t</code> is bit-identical.</p>
+<p>Simplification for monthly-only signals: monthly features are computed from daily returns compounded to month-ends inside the as-of view, so there is one data source and one clock.</p>
+<h3>3.3 Module interfaces (Python, typed; abridged)</h3>
+<div class="scroll"><pre><code class="language-python"># events.py
+@dataclass(frozen=True) class MarketEvent: ts: pd.Timestamp
+@dataclass(frozen=True) class SignalEvent: ts: pd.Timestamp; weights: pd.Series  # index=asset, sums to gross target
+@dataclass(frozen=True) class OrderEvent:  ts: pd.Timestamp; delta: pd.Series    # weight change
+@dataclass(frozen=True) class FillEvent:   ts: pd.Timestamp; delta: pd.Series; cost: float; prices: pd.Series
+
+# data.py
+class DataHandler(Protocol):
+    def advance(self) -&gt; MarketEvent | None
+    def view(self) -&gt; AsOfView                      # read-only, cursor-bounded
+    def bar_returns(self, ts) -&gt; pd.Series           # returns realised on bar ts
+class AsOfView:
+    def returns(self, lookback: int | None = None) -&gt; np.ndarray   # rows &lt;= cursor
+    def field(self, name: str, lookback: int | None = None) -&gt; np.ndarray
+
+# signals.py
+class SignalGenerator(Protocol):
+    def on_market(self, ev: MarketEvent, view: AsOfView) -&gt; SignalEvent | None
+
+# portfolio.py
+class Portfolio:
+    def on_market(self, ev, bar_returns) -&gt; None      # mark-to-market, drift weights
+    def on_signal(self, ev: SignalEvent) -&gt; OrderEvent | None
+    def on_fill(self, ev: FillEvent) -&gt; None
+class RiskManager(Protocol):
+    def apply(self, target: pd.Series, view: AsOfView, state: PortfolioState) -&gt; pd.Series
+
+# execution.py
+class ExecutionSimulator:
+    def on_order(self, ev: OrderEvent) -&gt; None        # queue
+    def on_market(self, ev: MarketEvent, view) -&gt; FillEvent | None  # fill due orders at this close
+class CostModel(Protocol):
+    def cost(self, delta: pd.Series, state: PortfolioState, view: AsOfView) -&gt; float  # in weight units
+
+# analytics.py
+def performance(returns: pd.Series, rf: pd.Series, freq: Literal[&quot;D&quot;,&quot;M&quot;]) -&gt; Metrics
+def deflated_sharpe(sr: float, n_obs: int, skew: float, kurt: float, sr_trials: np.ndarray) -&gt; float
+def pbo_cscv(perf_matrix: np.ndarray, n_splits: int = 16) -&gt; float
+def haircut_sharpe(sr: float, n_obs: int, n_tests: int, method: Literal[&quot;bonferroni&quot;,&quot;holm&quot;,&quot;bhy&quot;]) -&gt; float
+def factor_regression(r: pd.Series, factors: pd.DataFrame, hac_lags: int) -&gt; RegressionResult
+
+# validation.py
+def walk_forward_splits(dates, first_train_end, retrain_every=&quot;12M&quot;, purge=&quot;1M&quot;, embargo=&quot;1M&quot;) -&gt; Iterator[Split]
+def cpcv_splits(dates, n_groups=6, n_test_groups=2, purge=&quot;1M&quot;, embargo_pct=0.01) -&gt; Iterator[Split]
+
+# importance.py
+def grouped_permutation_importance(model, X, y, groups: dict[str, list[str]], scorer, n_repeats=50, seed) -&gt; pd.DataFrame
+def shap_by_group(model, X_test, groups, background=None) -&gt; pd.DataFrame
+def correlation_clusters(X, threshold) -&gt; dict[str, list[str]]
+</code></pre></div>
+<h3>3.4 Cost model (realism)</h3>
+<p><code>TotalCost = Σ_i |Δw_i| × (half_spread_i + commission + impact_i) + borrow</code>.
+- Industry leg: flat <code>bps_one_way</code> swept over {0, 5, 10, 25, 50}; no impact (not tradable). Novy-Marx &amp; Velikov show turnover drives net results (High).
+- ETF leg: <code>half_spread_i</code> from measured quotes (task D-7) or a sweep; commission 0 (most US brokers; Unverified) plus SEC/FINRA fees ignored (Unverified, tiny); impact <code>= k × σ_daily × sqrt(trade_notional / ADV)</code> (square-root law; Unverified source, standard practice) evaluated at AUM levels $1m, $10m, $100m, $1bn; borrow fee on short notional daily at an assumed annual rate swept {25, 50, 100, 300} bp (Unverified; easy-to-borrow ETFs are usually cheap).
+- Cash and financing: long-short is self-financing; collateral earns RF. Long-only variant holds no cash.
+- Capacity: AUM at which impact cost equals half the gross alpha. Reported for ETFs only.</p>
+<h3>3.5 Why X not Y</h3>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Choice</th>
+<th>Chosen</th>
+<th>Not</th>
+<th>Why</th>
+<th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Engine style</td>
+<td>Event-driven core + vectorised oracle</td>
+<td>Vectorised only (Phase 1)</td>
+<td>Brief requires event-driven; event style mirrors live systems and makes look-ahead structurally hard (<a target="_blank" rel="noopener" href="https://www.quantstart.com/articles/Event-Driven-Backtesting-with-Python-Part-I">QuantStart</a>, today). Oracle gives an independent check and speed for sweeps</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Clock</td>
+<td>Daily bars, monthly rebalance</td>
+<td>Monthly bars</td>
+<td>Allows next-day fills, daily vol estimates, realistic drift and turnover</td>
+<td>Unverified</td>
+</tr>
+<tr>
+<td>Language</td>
+<td>Python 3.13</td>
+<td>3.12 / 3.14</td>
+<td>numpy and shap need ≥ 3.12; vectorbt/zipline/nautilus need &lt; 3.15 (PyPI, today)</td>
+<td>High (constraints)</td>
+</tr>
+<tr>
+<td>Data frames</td>
+<td>pandas 3.1 + NumPy</td>
+<td>polars</td>
+<td>1.2M rows is small; sklearn, bt, statsmodels, quantstats expect pandas</td>
+<td>Unverified</td>
+</tr>
+<tr>
+<td>Env manager</td>
+<td>uv 0.13 + <code>uv.lock</code></td>
+<td>conda, poetry</td>
+<td>Fast, single lockfile, works on Windows; you can keep miniforge for other work</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Config</td>
+<td>YAML + pydantic v2 models, hashed</td>
+<td>Hydra 1.3.8</td>
+<td>Validation (e.g. <code>fill_lag ≥ 1</code>) and a stable config hash for the ledger; Hydra's composition is not needed</td>
+<td>Unverified</td>
+</tr>
+<tr>
+<td>Experiment log</td>
+<td>Append-only <code>experiments/ledger.jsonl</code> + git SHA + data hash</td>
+<td>MLflow</td>
+<td>No server, diffable, enough for ≤ 300 trials</td>
+<td>Unverified</td>
+</tr>
+<tr>
+<td>ML model</td>
+<td>LightGBM 4.7 regression</td>
+<td>XGBoost, neural nets</td>
+<td>GKX: trees competitive; fast; exact TreeSHAP (<a target="_blank" rel="noopener" href="https://nber.org/papers/w25398">Gu, Kelly &amp; Xiu</a>)</td>
+<td>High (GKX) / Unverified (choice)</td>
+</tr>
+<tr>
+<td>Linear benchmark</td>
+<td>Ridge</td>
+<td>OLS</td>
+<td>Stable with correlated features</td>
+<td>Unverified</td>
+</tr>
+<tr>
+<td>Stats</td>
+<td>statsmodels 0.15 (HAC/Newey-West via <code>cov_type="HAC"</code>)</td>
+<td>hand-rolled</td>
+<td>Standard and tested</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Overfitting stats</td>
+<td>Own DSR/PBO, checked against purgedcv 0.1.11</td>
+<td>purgedcv only</td>
+<td>Writing them is the learning; the library is a cross-check (<a target="_blank" rel="noopener" href="https://pypi.org/project/purgedcv/">PyPI</a>)</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Metrics cross-check</td>
+<td>QuantStats 0.0.86</td>
+<td>none</td>
+<td>Independent metric implementation</td>
+<td>High</td>
+</tr>
+<tr>
+<td>External backtester</td>
+<td><strong>bt 1.4.1</strong> (MIT)</td>
+<td>vectorbt (Commons Clause), backtrader (GPL, last release 2023), zipline-reloaded (heavy bundle ingestion), backtesting.py (AGPL, single asset), nautilus_trader (HFT-oriented)</td>
+<td>bt is weight-based (<code>WeighTarget</code>, <code>Rebalance</code>), multi-asset, has a <code>commissions</code> callable, MIT, released Oct 2026 (today)</td>
+<td>High</td>
+</tr>
+<tr>
+<td>App</td>
+<td>Streamlit 1.67 on Community Cloud</td>
+<td>Dash, Gradio on HF</td>
+<td>Free, deploys from GitHub; HF new Gradio Spaces need a paid plan (Phase 1, High)</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Fallback</td>
+<td>Static HTML report on GitHub Pages</td>
+<td>none</td>
+<td>App sleeps after 12 h idle</td>
+<td>High (sleep)</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>pytest 9 + hypothesis 6 + pytest-cov</td>
+<td>unittest</td>
+<td>Property tests for invariants (<a target="_blank" rel="noopener" href="https://hypothesis.readthedocs.io/en/latest/">Hypothesis docs</a>, today)</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Profiling</td>
+<td>pyinstrument 5.1</td>
+<td>cProfile only</td>
+<td>Readable call-tree HTML for the profile artefact</td>
+<td>Unverified</td>
+</tr>
+</tbody>
+</table></div>
+<h3>3.6 Design doc deliverable</h3>
+<p><code>docs/DESIGN.md</code> in the repo (2–3 pages): the timing contract (§3.2) with a sequence diagram, interfaces, invariants, the verification triangle, known limitations.</p>
+<h3>3.7 Performance profile deliverable</h3>
+<p><code>make profile</code> runs the full 1926–2026 daily backtest under pyinstrument and writes <code>reports/profile.html</code> plus a table: wall time, bars per second, peak memory (<code>tracemalloc</code>), time share per component. Target: under 30 s per full backtest on your laptop (Unverified). If it misses, optimise the hot loop (NumPy arrays instead of Series inside events; numba is stretch) and show before/after.</p>
+<hr />
+<h2>4. Repository blueprint</h2>
+<div class="scroll"><pre><code>momentum-lab/
+├── README.md                 results-first summary, app link, reproduce commands
+├── PREREGISTRATION.md        v1 hypotheses/thresholds; v2 frozen configs (git-tagged)
+├── MODEL_CARD.md             strategy/model card (SR 26-2 spirit)
+├── LICENSE                   MIT for code; data not included
+├── pyproject.toml            deps, ruff, mypy, pytest config
+├── uv.lock                   pinned environment
+├── .python-version           3.13
+├── Makefile                  task runner (also a tasks.py for Windows, see below)
+├── .github/workflows/ci.yml  lint, type-check, tests, coverage on synthetic data
+├── configs/
+│   ├── base.yaml             universe, dates, costs, seeds, fill_lag
+│   ├── strategies/*.yaml     one file per strategy config
+│   └── sweeps/*.yaml         parameter grids (count toward trial budget)
+├── data/                     gitignored: raw/, interim/, processed/; manifest.json committed (hashes, URLs, dates)
+├── src/momlab/
+│   ├── config.py             pydantic models, config hashing
+│   ├── events.py             event dataclasses
+│   ├── queue.py              EventQueue with time-order assertions
+│   ├── data/
+│   │   ├── kenfrench.py      download + parse zip CSVs, -99.99/-999 → NaN
+│   │   ├── etf.py            Tiingo/Alpaca downloader, adjusted prices, volume
+│   │   ├── clean.py          validation rules (§5.3)
+│   │   ├── handler.py        DataHandler, AsOfView, test-vault masking
+│   │   └── calendar.py       trading days, month-end rebalance dates
+│   ├── features.py           19 features with available_at
+│   ├── signals/
+│   │   ├── rules.py          momentum, vol-scaled momentum, 1-month signal, equal weight
+│   │   └── model_signal.py   wraps a fitted model as a SignalGenerator
+│   ├── portfolio.py          positions, drift, PortfolioState
+│   ├── risk.py               vol targeting, gross/net/position caps
+│   ├── execution.py          ExecutionSimulator, fill_lag
+│   ├── costs.py              FlatBps, SpreadImpactBorrow
+│   ├── engine.py             event loop, run(config) -&gt; RunResult
+│   ├── oracle.py             vectorised reference implementation
+│   ├── analytics/
+│   │   ├── metrics.py        Sharpe, Sortino, MDD, Calmar, turnover, HAC t
+│   │   ├── overfitting.py    PSR, DSR, PBO (CSCV), haircut Sharpe
+│   │   ├── factors.py        FF + Mom + ST Rev regressions
+│   │   └── bootstrap.py      stationary block bootstrap
+│   ├── validation.py         walk-forward, CPCV, purge, embargo
+│   ├── models.py             ridge, LightGBM, shuffled-label null
+│   ├── importance.py         clusters, grouped permutation, SHAP
+│   ├── ledger.py             append-only trial ledger
+│   └── synthetic.py          known-answer market generators
+├── tests/
+│   ├── unit/                 per-module tests (§9.1)
+│   ├── property/             hypothesis invariants
+│   ├── synthetic/            known-answer markets (§9.2)
+│   ├── crosscheck/           oracle, bt, quantstats, purgedcv parity (§9.3)
+│   └── regression/           golden results (§9.4)
+├── experiments/ledger.jsonl  every trial (committed)
+├── results/                  small parquet/CSV outputs used by app and README
+├── reports/                  coverage html, profile html, figures
+├── notebooks/                exploration only; nothing in results/ comes from notebooks
+├── app/
+│   ├── streamlit_app.py
+│   └── pages/                1_Engine, 2_Strategy, 3_Robustness, 4_Features, 5_Crashes, 6_Ledger
+└── docs/
+    ├── DESIGN.md, DATA.md, DECISIONS.md (decision log), LIMITATIONS.md
+    └── plan/                 this plan
+</code></pre></div>
+<ul>
+<li><strong>Pinned environment:</strong> <code>uv lock</code>; CI uses <code>uv sync --frozen</code>. Python pinned via <code>.python-version</code>.</li>
+<li><strong>Config system:</strong> <code>configs/base.yaml</code> merged with a strategy YAML into a pydantic <code>RunConfig</code>; <code>config_hash = sha256(canonical JSON)</code>. Every result file name includes the hash.</li>
+<li><strong>Seeds:</strong> one <code>seed</code> in config; derived seeds via <code>numpy.random.SeedSequence(seed).spawn(n)</code> for bootstrap, permutation, LightGBM (<code>seed</code>, <code>deterministic=True</code>, <code>num_threads</code> fixed).</li>
+<li><strong>Task runner:</strong> Makefile targets <code>setup, data, test, test-fast, lint, typecheck, crosscheck, results, robustness, importance, report, profile, app, all</code>. Because you are on Windows, also provide <code>tasks.py</code> (plain Python, <code>python tasks.py test</code>) with the same targets so <code>make</code> is optional.</li>
+<li><strong>CI</strong> (<code>ci.yml</code>, GitHub Actions, free on public repos): on push and PR: <code>uv sync --frozen</code> → <code>ruff check</code> → <code>ruff format --check</code> → <code>mypy src</code> → <code>pytest -m "not data" --cov=momlab --cov-fail-under=85</code> → upload coverage HTML as an artefact. Real-data tests are marked <code>data</code> and run locally (raw data cannot be committed).</li>
+</ul>
+<hr />
+<h2>5. Data plan</h2>
+<h3>5.1 Sources and licences</h3>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Use</th>
+<th>Coverage</th>
+<th>Licence / terms</th>
+<th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ken French 49 Industry Portfolios, daily and monthly (value-weighted block primary)</td>
+<td>Industry leg</td>
+<td>1926-07-01 to 2026-09-30</td>
+<td>Copyright Fama &amp; French; no licence stated. Download in code; do not commit raw files; publish derived results with attribution</td>
+<td>High (coverage, copyright); Unverified (policy)</td>
+</tr>
+<tr>
+<td>Ken French F-F 3 factors daily/monthly (incl. RF), Mom, ST Rev</td>
+<td>RF, factor regressions, B2</td>
+<td>Long history</td>
+<td>Same</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Tiingo EOD (free tier)</td>
+<td>ETF prices, adjusted, volume</td>
+<td>ETFs since 1998-12</td>
+<td>Free tier limits and "internal use" terms per Phase 1 (Medium); verify at sign-up</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Alpaca Market Data Basic (free)</td>
+<td>ETF cross-check, quotes for spread estimate</td>
+<td>Since 2016, IEX feed</td>
+<td>Free; per Phase 1 (High)</td>
+<td>High</td>
+</tr>
+<tr>
+<td>yfinance</td>
+<td>Emergency fallback only</td>
+<td>Broad</td>
+<td>"Personal use only" (Phase 1, High)</td>
+<td>High</td>
+</tr>
+</tbody>
+</table></div>
+<p>ETF universe: the nine original Select Sector SPDRs (XLB, XLE, XLF, XLI, XLK, XLP, XLU, XLV, XLY), which all trade from December 1998 (Unverified date; check in D-6). XLRE and XLC are excluded from the core test (start 2015 and 2018; Unverified) to keep the universe fixed.</p>
+<h3>5.2 Schema (processed, long format parquet)</h3>
+<p><code>industry_daily.parquet</code>: <code>date: date32</code>, <code>asset: category(49)</code>, <code>ret: float64</code> (simple, decimal), <code>weighting: {"vw","ew"}</code>, <code>available_at: date32</code> (= date), <code>n_firms: int</code> (monthly, forward-filled within month, lagged one month), <code>avg_size: float</code> (same), <code>source_vintage: str</code>.
+<code>factors_daily.parquet</code>: <code>date, mkt_rf, smb, hml, rf, mom, st_rev</code>.
+<code>etf_daily.parquet</code>: <code>date, asset, open, close, adj_close, volume, ret (from adj_close), available_at</code>.
+<code>etf_quotes_sample.parquet</code>: <code>date, asset, bid, ask, mid, half_spread_bps</code>.
+<code>features_monthly.parquet</code>: <code>date (month-end t), asset, f_* (16 columns), available_at, label_fwd_1m (demeaned), label_window_end</code>.
+<code>manifest.json</code>: per file <code>url, download_ts, sha256, rows, first_date, last_date</code>.</p>
+<h3>5.3 Cleaning rules (each one a test)</h3>
+<ol>
+<li>Replace -99.99 and -999 with NaN; percent → decimal.</li>
+<li>Assert dates strictly increasing, unique, trading days only; monthly dates parse to month-end.</li>
+<li>An industry with NaN return on day t is excluded from the cross-section for any rebalance whose lookback includes NaNs (no forward-fill of returns, ever).</li>
+<li>Daily-compounded month returns must match the monthly file within 1e-4 per industry-month; mismatches logged (vintage or rounding).</li>
+<li>Values outside [-0.5, +1.0] daily get flagged for review, not clipped.</li>
+<li>ETF: returns from adjusted close; check splits by comparing to unadjusted ratio; drop days with zero volume.</li>
+<li>Data vintage: Ken French files are revised over time (CRSP updates; Unverified). Store the sha256 and download date; results cite the vintage.</li>
+</ol>
+<h3>5.4 Split design</h3>
+<ul>
+<li><strong>Research period:</strong> 1926-07 to 2005-12 (features need 12 months, so first signal 1927-07). All exploration, tuning and the trial budget live here.</li>
+<li><strong>Locked test:</strong> 2006-01 to 2026-09. The <code>DataHandler</code> masks these rows unless <code>MOMLAB_UNLOCK_TEST=1</code> <strong>and</strong> <code>PREREGISTRATION.md</code> v2 is committed and tagged <code>prereg-v2</code>. Unlocking appends an entry to <code>experiments/unlock_log.jsonl</code>. Opened once (task T-2).</li>
+<li><strong>ML inside the research period:</strong> expanding-window walk-forward, first training window 1927-07 to 1946-12, retrain every 12 months, predictions 1947-01 to 2005-12. Purge 1 month plus 1 day (label horizon plus fill lag) and embargo 1 month. CPCV: 6 groups, 2 test groups → 15 splits and 5 backtest paths (<a target="_blank" rel="noopener" href="https://www.wiley-vch.de/de/fachgebiete/finanzen-wirtschaft-recht/advances-in-financial-machine-learning-978-1-119-48208-6">López de Prado 2018, ch. 12</a>, High).</li>
+<li><strong>Sub-periods (reporting only):</strong> 1927–1945, 1946–1969, 1970–1992, 1993–2005, 2006–2026; pre/post 1993 publication split.</li>
+<li><strong>ETF leg:</strong> 1999-01 to 2026-09 run once with the frozen industry strategy (no ETF tuning).</li>
+</ul>
+<h3>5.5 Leakage and bias checklist (project-specific)</h3>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Risk</th>
+<th>Check</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>Signal uses day t return and fills at day t close</td>
+<td><code>fill_lag ≥ 1</code> validator</td>
+<td>poisoned-future test</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>12-1 window off by one (includes the skip month)</td>
+<td>Hand-computed window on a 15-month toy series</td>
+<td><code>test_mom_12_1_window</code></td>
+</tr>
+<tr>
+<td>L3</td>
+<td>Monthly n_firms / avg_size used in the same month it is reported</td>
+<td>Lag one month via <code>available_at</code></td>
+<td><code>test_available_at_lag</code></td>
+</tr>
+<tr>
+<td>L4</td>
+<td>BE/ME (if used) available before fiscal data is public</td>
+<td>Use only from July of year t+1; excluded from core features</td>
+<td><code>test_beme_lag</code></td>
+</tr>
+<tr>
+<td>L5</td>
+<td>Cross-sectional demeaning of the label uses assets missing at t</td>
+<td>Demean over assets valid at t only</td>
+<td><code>test_label_universe</code></td>
+</tr>
+<tr>
+<td>L6</td>
+<td>Feature standardisation fit on all data</td>
+<td>Scalers fit inside each training fold</td>
+<td><code>test_scaler_in_fold</code></td>
+</tr>
+<tr>
+<td>L7</td>
+<td>Overlapping labels across CV folds</td>
+<td>Purge and embargo</td>
+<td><code>test_purge_removes_overlap</code></td>
+</tr>
+<tr>
+<td>L8</td>
+<td>Hyperparameters chosen on the test period</td>
+<td>Test vault masking</td>
+<td><code>test_vault_locked</code></td>
+</tr>
+<tr>
+<td>L9</td>
+<td>Vol-scaling uses the same day's realised vol</td>
+<td>Vol from returns ≤ t</td>
+<td>covered by poisoned-future test</td>
+</tr>
+<tr>
+<td>L10</td>
+<td>Survivorship</td>
+<td>Industry portfolios include all CRSP firms at the time; ETFs fixed list chosen on inception dates, not on performance</td>
+<td>documented in DATA.md</td>
+</tr>
+<tr>
+<td>L11</td>
+<td>Look-ahead in industry definitions</td>
+<td>Ken French assigns SIC at end of June t (point-in-time per detail page, High)</td>
+<td>documented</td>
+</tr>
+<tr>
+<td>L12</td>
+<td>Selection bias from my own trials</td>
+<td>Ledger + DSR + PBO</td>
+<td><code>test_ledger_append_only</code></td>
+</tr>
+<tr>
+<td>L13</td>
+<td>Data-snooping via prior knowledge (I already know momentum crashed in 2009)</td>
+<td>Pre-registration before looking; crash analysis is descriptive</td>
+<td>process</td>
+</tr>
+<tr>
+<td>L14</td>
+<td>ETF universe chosen with hindsight</td>
+<td>Fixed rule: the nine original sector SPDRs</td>
+<td>process</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>6. Phased roadmap (summary; full task table in <a href="#roadmap">docs/ROADMAP.md</a>)</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Goal</th>
+<th>Entry</th>
+<th>Exit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0 Setup &amp; pre-registration</td>
+<td>Repo, env, CI, PREREG v1</td>
+<td>Plan approved</td>
+<td>CI green on an empty test; PREREG v1 tagged</td>
+</tr>
+<tr>
+<td>P1 Data</td>
+<td>Clean, hashed panels</td>
+<td>P0</td>
+<td>All §5.3 tests pass; D-4 gate (own 12-1 vs Mom correlation) passes</td>
+</tr>
+<tr>
+<td>P2 Engine</td>
+<td>Event-driven engine + oracle</td>
+<td>P1</td>
+<td>Hand-computed trade tests pass; engine == oracle to 1e-10</td>
+</tr>
+<tr>
+<td>P3 Verification</td>
+<td>Synthetic markets, bt and QuantStats parity, profile</td>
+<td>P2</td>
+<td>All §9.2/§9.3 checks pass or differences documented</td>
+</tr>
+<tr>
+<td>P4 Baselines &amp; rules research</td>
+<td>B0–B5, sweeps, cost curve</td>
+<td>P3</td>
+<td>Baseline table on research period; ledger populated</td>
+</tr>
+<tr>
+<td>P5 ML &amp; feature study</td>
+<td>Ridge, LightGBM, null, importance</td>
+<td>P4</td>
+<td>Walk-forward and CPCV results; importance stability report</td>
+</tr>
+<tr>
+<td>P6 Robustness &amp; locked test</td>
+<td>Surfaces, sub-periods, multiple testing, PREREG v2, unlock, ETF leg</td>
+<td>P5</td>
+<td>Final tables with DSR, PBO, CI; test opened once</td>
+</tr>
+<tr>
+<td>P7 Product</td>
+<td>README, DESIGN, MODEL_CARD, app, static report, interview kit numbers</td>
+<td>P6</td>
+<td>App live; README reproducible from <code>make all</code></td>
+</tr>
+<tr>
+<td>---- cut line: core above, stretch below ----</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>P8 Stretch</td>
+<td>numba loop, CPCV path viewer, JKP robustness, paper-trading shadow, blog</td>
+<td>P7</td>
+<td>Each item independent</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Critical path:</strong> S-1 → S-2 → S-4 → D-1 → D-2 → D-3 → D-4 → E-1 → E-2 → E-3 → E-4 → E-5 → E-6 → V-1 → V-3 → R-1 → R-2 → M-1 → M-3 → M-4 → F-1 → F-2 → B-1 → B-3 → T-1 → T-2 → W-1 → A-1.</p>
+<hr />
+<h2>7. Method plan</h2>
+<h3>7.1 Order of work</h3>
+<ol>
+<li><strong>Baselines first</strong> (B0–B5) on the research period at 0 and 10 bp, with turnover.</li>
+<li><strong>Rule progression:</strong> plain 12-1 (B3) → vol-scaled (B4: target 10% annual vol, vol from trailing 126 trading days of strategy returns, leverage cap 2.0; window is Unverified, see inventory gap 6) → crash-aware variant (scale down when the past 24-month market return is negative and market vol is high, after <a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20439">Daniel &amp; Moskowitz</a>; High that the conditions predict crashes, Unverified as a rule).</li>
+<li><strong>ML progression:</strong> ridge (B7) → LightGBM regression → LightGBM with monotone constraint on momentum features (stretch) → LambdaRank ablation (stretch). Shuffled-label null (B6) runs with every ML config.</li>
+<li><strong>Portfolio mapping identical for all signals:</strong> rank the score, long top 10, short bottom 10, equal weight within legs, then the same vol-targeting risk rule. Only the score differs, so comparisons isolate the signal.</li>
+</ol>
+<h3>7.2 Features (19, in 5 groups; all computed from data ≤ t)</h3>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Momentum</td>
+<td><code>mom_12_1</code>, <code>mom_6_1</code>, <code>mom_3_1</code>, <code>mom_36_13</code> (long-term), <code>mom_12_1_riskadj</code> (= mom_12_1 / vol_12m)</td>
+</tr>
+<tr>
+<td>Short-term</td>
+<td><code>ret_1m</code>, <code>max_daily_1m</code> (largest daily return last month), <code>frac_up_days_1m</code></td>
+</tr>
+<tr>
+<td>Volatility / risk</td>
+<td><code>vol_1m</code>, <code>vol_3m</code>, <code>vol_12m</code>, <code>beta_12m</code> (vs market), <code>downside_vol_3m</code></td>
+</tr>
+<tr>
+<td>Structure (size proxy)</td>
+<td><code>log_avg_size</code> (lagged 1 month), <code>n_firms</code> (lagged), <code>vw_minus_ew_12m</code></td>
+</tr>
+<tr>
+<td>Market state (same for all assets in a month)</td>
+<td><code>mkt_ret_24m</code>, <code>mkt_vol_1m</code>, <code>xs_dispersion_1m</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>The market-state group is identical across assets in a month, so it only matters through interactions in trees; it is still one group for importance. Liquidity is not available at industry level (inventory C5).</p>
+<p>Label: <code>y = r_{i,t+1} − mean_j r_{j,t+1}</code>, where the return window runs from the fill close (t+1 trading day) to the next fill close. LightGBM defaults pre-registered: <code>num_leaves=15, learning_rate=0.03, n_estimators=300, min_data_in_leaf=200, feature_fraction=0.8, bagging_fraction=0.8, lambda_l2=1.0</code>; tuning only via the inner time-series split and counted in the trial budget. Scorer: mean monthly Spearman rank IC.</p>
+<h3>7.3 Ablations</h3>
+<ul>
+<li>Drop each feature group (5 runs) → change in rank IC and net Sharpe.</li>
+<li>Momentum-only LightGBM vs all features (Nagel test on real data).</li>
+<li>No vol scaling vs vol scaling, for both rules and ML.</li>
+<li>Fill lag 1 vs 2 vs 5 days.</li>
+<li>Value-weighted vs equal-weighted industry returns.</li>
+<li>Long-short vs long-only (top 10 vs B1).</li>
+</ul>
+<h3>7.4 Sensitivity analyses (research period only)</h3>
+<ul>
+<li>Parameter stability surface: lookback {3, 6, 9, 12, 18} months × skip {0, 1} × holding {1, 3, 6} months (overlapping portfolios for holding &gt; 1) × n per leg {5, 7, 10, 15}: heatmaps of net Sharpe at 10 bp. Pass condition: the pre-registered point (12, 1, 1, 10) sits on a plateau, defined as ≥ 70% of its neighbours within 0.2 Sharpe (Unverified rule).</li>
+<li>Cost sweep {0, 5, 10, 25, 50} bp and break-even cost.</li>
+<li>Vol target {5, 10, 15}% and window {63, 126, 252} days.</li>
+<li>Rebalance day: last trading day vs 10th trading day of month.</li>
+</ul>
+<h3>7.5 Experiment log schema (<code>experiments/ledger.jsonl</code>, one JSON object per trial)</h3>
+<div class="scroll"><pre><code class="language-json">{&quot;trial_id&quot;: &quot;uuid4&quot;, &quot;ts&quot;: &quot;ISO-8601&quot;, &quot;git_sha&quot;: &quot;abc123&quot;, &quot;dirty&quot;: false,
+ &quot;config_hash&quot;: &quot;sha256&quot;, &quot;config&quot;: {...}, &quot;data_manifest_hash&quot;: &quot;sha256&quot;,
+ &quot;phase&quot;: &quot;research|test&quot;, &quot;strategy&quot;: &quot;vs_mom_12_1&quot;, &quot;family&quot;: &quot;rules|ml|null&quot;,
+ &quot;period&quot;: [&quot;1927-07-31&quot;, &quot;2005-12-31&quot;], &quot;cost_bps&quot;: 10, &quot;seed&quot;: 7,
+ &quot;metrics&quot;: {&quot;ann_ret&quot;: 0.0, &quot;ann_vol&quot;: 0.0, &quot;sharpe&quot;: 0.0, &quot;sharpe_hac_t&quot;: 0.0,
+             &quot;sortino&quot;: 0.0, &quot;mdd&quot;: 0.0, &quot;calmar&quot;: 0.0, &quot;worst_month&quot;: 0.0,
+             &quot;skew&quot;: 0.0, &quot;kurt&quot;: 0.0, &quot;turnover_1way_monthly&quot;: 0.0,
+             &quot;rank_ic_mean&quot;: null, &quot;rank_ic_t&quot;: null, &quot;n_months&quot;: 0},
+ &quot;counts_toward_budget&quot;: true, &quot;notes&quot;: &quot;why I ran this&quot;}
+</code></pre></div>
+<p><code>ledger.py</code> refuses to rewrite or delete lines (append-only, checked by a hash chain: each line stores the sha256 of the previous line).</p>
+<hr />
+<h2>8. Honesty and robustness protocol</h2>
+<h3>8.1 Ten ways this project could fool me, and the test that catches each</h3>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Self-deception</th>
+<th>Catching test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Hidden look-ahead in engine or features</td>
+<td>Poisoned-future test; <code>AsOfView</code> bounds; fill_lag validator; engine vs oracle vs bt</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Off-by-one in signal windows</td>
+<td>Hand-computed toy windows; correlation of own B3 with published Mom &gt; 0.5 (debug stop &lt; 0.3; thresholds Unverified)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Selection over hundreds of variants</td>
+<td>Append-only ledger; DSR with all trials; PBO via CSCV; Harvey-Liu BHY haircut (<a target="_blank" rel="noopener" href="https://people.duke.edu/~charvey/Research/Published_Papers/P120_Backtesting.PDF">Harvey &amp; Liu, today</a>)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Peeking at the test period</td>
+<td>Vault masking + unlock log + PREREG v2 tag</td>
+</tr>
+<tr>
+<td>5</td>
+<td>ML "skill" from leakage</td>
+<td>Shuffled-label null must have</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Costs ignored or understated</td>
+<td>Cost curve and break-even; turnover reported; ETF measured spreads; borrow sweep</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Overstated Sharpe from autocorrelation or annualisation</td>
+<td>Lo (2002) adjustment for serial correlation (<a target="_blank" rel="noopener" href="https://ideas.repec.org/a/taf/ufajxx/v58y2002i4p36-52.html">IDEAS, today</a>); HAC t-stats; block bootstrap CI</td>
+</tr>
+<tr>
+<td>8</td>
+<td>One lucky period carries everything</td>
+<td>Sub-period table; rolling 10-year Sharpe chart; leave-one-decade-out</td>
+</tr>
+<tr>
+<td>9</td>
+<td>ML is momentum in disguise</td>
+<td>Momentum-only model vs full; SHAP dependence on mom_12_1; correlation of ML returns with B4 returns; synthetic reversal market (§9.2 S4)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Importance read as causation or as stable truth</td>
+<td>Grouped permutation on held-out folds with CIs; rank stability across folds (Kendall τ); SHAP interventional vs path-dependent comparison; caveats in §7 report</td>
+</tr>
+</tbody>
+</table></div>
+<h3>8.2 Finance-awareness items</h3>
+<ul>
+<li><strong>Costs:</strong> industry leg is a sweep because portfolios are not tradable; ETF leg uses measured spreads. Momentum's costs at scale are lower than academic estimates while reversal's are not (<a target="_blank" rel="noopener" href="https://www.aqr.com/Insights/Research/Working-Paper/Trading-Costs-of-Asset-Pricing-Anomalies">Frazzini, Israel &amp; Moskowitz, today</a>, High).</li>
+<li><strong>Regimes:</strong> crash months (1932, 2009 rebound) analysed explicitly; bear-market state feature (<a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20439">Daniel &amp; Moskowitz</a>, High).</li>
+<li><strong>Regulation:</strong> all outputs labelled "hypothetical backtest, not investment advice"; no performance marketing (<a target="_blank" rel="noopener" href="https://www.klgates.com/thought-leadership/Hypothetical-Performance-Crackdown-Nine-Firms-Charged-With-Violations-of-Investment-Adviser-Marketing-and-Recordkeeping-Rules-9-13-2023">Phase 1 §3</a>, Medium). Data terms respected (no raw redistribution).</li>
+<li><strong>Model risk:</strong> MODEL_CARD.md follows the spirit of <a target="_blank" rel="noopener" href="https://www.federalreserve.gov/supervisionreg/srletters/sr2602.htm">SR 26-2</a> (High): purpose, data, conceptual soundness, outcomes analysis, limits, monitoring triggers.</li>
+<li><strong>Capacity:</strong> ETF capacity curve at AUM $1m to $1bn; industry leg has no capacity claim.</li>
+<li><strong>Data quality:</strong> vintage hashes; monthly vs daily reconciliation; 1926–1940s industries with few firms flagged (n_firms) and a robustness run excluding industries with &lt; 5 firms (threshold Unverified).</li>
+<li><strong>Borrow:</strong> ETF shorts are generally easy to borrow but not free; swept, and long-only variant reported (Unverified).</li>
+</ul>
+<hr />
+<h2>9. Test strategy</h2>
+<h3>9.1 Unit tests for silent-bug-prone functions</h3>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Test (hand-computed expected values in the test file)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>features.mom_window</code></td>
+<td>15-month toy series of known returns; assert <code>mom_12_1</code> = product of months t-12…t-2 minus 1; skip month excluded</td>
+</tr>
+<tr>
+<td><code>calendar.month_end_rebalance_dates</code></td>
+<td>Months ending on weekends/holidays (e.g. 2023-09-29 Friday)</td>
+</tr>
+<tr>
+<td><code>portfolio.on_market</code> (drift)</td>
+<td>2 assets, weights 0.5/0.5, returns +10%/−10% → weights 0.55/0.45 after drift</td>
+</tr>
+<tr>
+<td><code>portfolio.turnover</code></td>
+<td>Turnover computed from drifted weights, not from previous targets</td>
+</tr>
+<tr>
+<td><code>costs.FlatBps</code></td>
+<td>Δw = [+0.2, −0.2] at 10 bp → cost 0.0004</td>
+</tr>
+<tr>
+<td><code>execution</code> fill lag</td>
+<td>Order at t fills at t+1 close; returns credited from t+2</td>
+</tr>
+<tr>
+<td>Hand-computed trades</td>
+<td>3 assets × 6 days spreadsheet (committed as CSV): every fill, cost, position and daily P&amp;L matches to 1e-12</td>
+</tr>
+<tr>
+<td><code>risk.vol_target</code></td>
+<td>Constant-vol synthetic returns → leverage = target/vol; cap respected</td>
+</tr>
+<tr>
+<td><code>analytics.sharpe</code></td>
+<td>Known series; RF subtraction; annualisation √252 vs √12 matches frequency</td>
+</tr>
+<tr>
+<td><code>analytics.max_drawdown</code></td>
+<td>Hand example with two drawdowns</td>
+</tr>
+<tr>
+<td><code>overfitting.psr/dsr</code></td>
+<td>Reproduce numeric example from Bailey &amp; López de Prado; match purgedcv</td>
+</tr>
+<tr>
+<td><code>overfitting.pbo_cscv</code></td>
+<td>Matrix where one strategy dominates in every split → PBO ≈ 0; pure noise → PBO ≈ 0.5</td>
+</tr>
+<tr>
+<td><code>validation.purge</code></td>
+<td>No training label window overlaps any test label window</td>
+</tr>
+<tr>
+<td><code>importance.grouped_permutation</code></td>
+<td>Permuting a group shuffles all its columns with the same row permutation</td>
+</tr>
+<tr>
+<td><code>kenfrench.parse</code></td>
+<td>Fixture text with -99.99, -999 and header blocks parses to NaN and decimals</td>
+</tr>
+<tr>
+<td>Property tests (hypothesis)</td>
+<td>Zero-cost run is invariant to asset column order; weights sum to target gross; cost ≥ 0; doubling all target weights doubles gross P&amp;L</td>
+</tr>
+</tbody>
+</table></div>
+<h3>9.2 Synthetic markets with a known answer (<code>tests/synthetic/</code>)</h3>
+<ul>
+<li><strong>S1 Null market:</strong> 49 i.i.d. Student-t assets, 30 years, 200 seeds. Expect: momentum Sharpe |t| &gt; 2 in about 5% of seeds (binomial check), mean Sharpe ≈ 0.</li>
+<li><strong>S2 Planted momentum:</strong> monthly returns <code>r_{i,t+1} = β · z(mom_12_1_{i,t}) + ε</code>, β known. The expected long-short monthly return is derivable from β and the spread in z between legs; the engine's estimate over 100 years must fall within its 95% CI in ≥ 90% of 50 seeds.</li>
+<li><strong>S3 Deterministic cost market:</strong> constant returns, alternating signal; P&amp;L equals −(turnover × cost) exactly.</li>
+<li><strong>S4 Planted reversal (Nagel-style):</strong> returns reverse the 12-1 signal. Expect momentum loses money and LightGBM learns a negative dependence (SHAP slope on mom_12_1 &lt; 0).</li>
+</ul>
+<h3>9.3 Cross-checks (independent implementations)</h3>
+<ol>
+<li><strong>Oracle:</strong> <code>oracle.py</code> vectorised path; daily returns identical to 1e-10 for all baselines at any cost.</li>
+<li><strong>bt 1.4.1:</strong> convert returns to price indices; pass engine target weights <strong>shifted to the fill date</strong> to <code>bt.algos.WeighTarget</code> + <code>bt.algos.Rebalance</code>; <code>commissions=lambda q, p: abs(q) * p * bps / 1e4</code>; <code>integer_positions=False</code>. Expected sources of difference, each quantified in <code>reports/crosscheck.md</code>: (a) bt trades at the close of the bar where weights appear (handled by the shift), (b) bt's commission is in cash and reduces capital before sizing (Medium; read from bt source today), (c) cash residuals, (d) floating-point. Pass: tolerance in §2.3.</li>
+<li><strong>QuantStats:</strong> Sharpe, Sortino, max drawdown, CAGR on the same return series within 1e-6 (definitions aligned: RF, periods).</li>
+<li><strong>purgedcv:</strong> DSR and PBO values within 1e-6 on the same inputs.</li>
+<li><strong>Ken French Mom factor:</strong> correlation and regression of own 12-1 industry momentum on published Mom (sanity, not equality: different universes).</li>
+</ol>
+<h3>9.4 Regression tests on results</h3>
+<ul>
+<li><code>tests/regression/golden_synthetic.parquet</code>: metrics of every baseline on a seeded synthetic market; CI fails if any metric changes by &gt; 1e-9 unless <code>GOLDEN_UPDATE</code> is set and the change is explained in <code>docs/DECISIONS.md</code>.</li>
+<li><code>make regress</code> (local, needs real data): compares baseline metrics on the frozen data vintage against <code>results/golden_real.json</code>.</li>
+<li>Coverage: ≥ 85% lines for <code>src/momlab</code> (Unverified target), 100% for <code>engine.py</code>, <code>execution.py</code>, <code>costs.py</code>, <code>data/handler.py</code>.</li>
+</ul>
+<hr />
+<h2>10. Deployment</h2>
+<p><strong>Stack:</strong> Streamlit 1.67 app on Streamlit Community Cloud, reading only <code>results/*.parquet</code> (target &lt; 50 MB total, Unverified), no data downloads at runtime. Fallback: static HTML report (<code>make report</code>, matplotlib + Jinja2 into <code>site/</code>) on GitHub Pages.</p>
+<p><strong>Steps:</strong>
+1. Make the repo public on GitHub (required for free CI minutes and Pages; private repos get $12/month of compute, <a target="_blank" rel="noopener" href="https://docs.github.com/en/billing/concepts/product-billing/github-actions">GitHub docs</a>, High).
+2. <code>make results report</code> locally; commit <code>results/</code> and <code>site/</code>.
+3. Add <code>app/requirements.txt</code> exported from the lockfile (<code>uv export --no-dev &gt; app/requirements.txt</code>).
+4. On share.streamlit.io: New app → repo → branch <code>main</code> → file <code>app/streamlit_app.py</code> → Python 3.13 in advanced settings → Deploy.
+5. Settings → Pages: deploy <code>site/</code> via a <code>pages.yml</code> workflow.
+6. Smoke test: open each page in a private window; memory stays under 1 GB (Unverified target, well under 2.7 GB).</p>
+<p><strong>Free-tier limits:</strong> 0.078–2 cores, 690 MB–2.7 GB RAM, sleeps after 12 h without traffic, limits "may change at any time" (<a target="_blank" rel="noopener" href="https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app">Streamlit docs, today</a>, High). Mitigation: <code>st.cache_data</code> on loaders; visit the app before each interview; README links both app and static report.</p>
+<p><strong>What the live app shows:</strong> Overview (question, headline table with gross/net/DSR/trials/period, hypothetical label); Engine (timing diagram, cross-check table, coverage badge, profile); Strategy (equity curves, cost slider recomputing <code>net = gross − cost × turnover</code> from stored series, long-short vs long-only); Robustness (parameter heatmaps, sub-periods, DSR/PBO, rolling Sharpe); Features (grouped importance with CIs, fold stability, SHAP summary and dependence); Crashes (worst 10 months, market-state conditions, what vol scaling saved); Ledger (filterable trial table).</p>
+<hr />
+<h2>11. Documentation</h2>
+<p><strong>README outline:</strong> 1) one-paragraph result with numbers, CIs, trials and "hypothetical backtest" label; 2) app and report links, one figure (cost curve); 3) question and pre-registered hypotheses (link PREREG); 4) engine in 5 bullets plus verification table; 5) data and licences; 6) method (timing, costs, validation); 7) results table (all baselines, gross and net, DSR, PBO); 8) feature study summary; 9) what failed; 10) limitations (link); 11) reproduce: <code>uv sync &amp;&amp; python tasks.py all</code>; 12) project structure; 13) references.</p>
+<p><strong>Strategy/model card (<code>MODEL_CARD.md</code>):</strong> purpose and intended use (research demo only); not intended for (live trading, advice); data and vintage; methodology; assumptions (fill lag, costs, borrow); validation (verification triangle, CV, test); performance with uncertainty; known limitations; sensitivity; monitoring triggers if it were live (rolling 36-month Sharpe &lt; 0, turnover &gt; 2× research average, rank IC &lt; 0 for 12 months; Unverified thresholds); owner and date.</p>
+<p><strong>Limitations section (<code>docs/LIMITATIONS.md</code>):</strong> industry portfolios not tradable; single country; Ken French data revisions; no liquidity features; ETF sample short (9 assets, ~27 years); cost model simplified; borrow assumed; 20-year test is a short sample for Sharpe inference; DSR depends on honest trial counting; importance is model-specific and not causal.</p>
+<p><strong>Results tables and figures:</strong> T1 baselines (research); T2 ML vs rules; T3 locked test; T4 sub-periods; T5 factor regression (alpha, betas, HAC t); T6 cross-check; T7 ETF leg with capacity. F1 cumulative net returns (log scale); F2 cost curve; F3 parameter heatmap; F4 rolling 10-year Sharpe; F5 grouped importance with CIs; F6 importance rank stability across folds; F7 SHAP dependence of mom_12_1; F8 crash months; F9 engine timing sequence diagram; F10 profile breakdown.</p>
+<p><strong>Optional blog post outline:</strong> "I tried to fool myself ten ways with a momentum backtest": hook (the result that failed) → why momentum → the engine contract → the three checks → results with costs → ML vs momentum → what importance means and doesn't → lessons.</p>
+<hr />
+<h2>12. Interview kit (summary; full kit in <a href="#interview">docs/INTERVIEW_KIT.md</a>)</h2>
+<p>Contains: 3 CV bullet templates with blanks; 25 probing questions with answer outlines; 5 weaknesses to disclose proactively; 3-minute and 10-minute talk tracks.</p>
+<h2>13. Learning path (summary; full path in <a href="#learning">docs/LEARNING_PATH.md</a>)</h2>
+<p>16 concepts ordered by when the roadmap needs them, each with primary resources and a self-check exercise.</p>
+<hr />
+<h2>14. Risk register</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Risk</th>
+<th>Early warning</th>
+<th>Mitigation</th>
+<th>Fallback</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td>Hidden look-ahead</td>
+<td>Sharpe &gt; 2 on monthly data; null model profitable; engine ≠ oracle</td>
+<td>Poisoned-future test, triangle checks</td>
+<td>Freeze results; bisect by git SHA</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>Ken French download or format changes</td>
+<td>Parser test fails on new vintage</td>
+<td>Fixture tests; manifest hashes; keep last good local copy</td>
+<td>pandas-datareader 0.11.1 as alternate parser</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>Free ETF data tier changes or blocks</td>
+<td>401/429 errors</td>
+<td>Cache locally, small universe (9)</td>
+<td>Alpaca Basic; yfinance for personal verification only</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>Momentum fails in locked test</td>
+<td>(unknown until T-2)</td>
+<td>Pre-registered null presentation (§2.4)</td>
+<td>Story pivots to decay and engine rigour</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>ML adds nothing</td>
+<td>Rank IC of ML ≈ ridge ≈ B4</td>
+<td>Pre-registered as likely (H3)</td>
+<td>Nagel framing</td>
+</tr>
+<tr>
+<td>R6</td>
+<td>Scope creep / never shipping</td>
+<td>Stretch tasks started before P7 exit</td>
+<td>Cut line; P7 before P8</td>
+<td>Ship core only</td>
+</tr>
+<tr>
+<td>R7</td>
+<td>Trial budget exhausted early</td>
+<td>Ledger count &gt; 200 before P5</td>
+<td>Plan sweeps in configs; count before running</td>
+<td>Report DSR with full count anyway</td>
+</tr>
+<tr>
+<td>R8</td>
+<td>Engine too slow for sweeps</td>
+<td>Full run &gt; 60 s</td>
+<td>Profile; oracle for sweeps after parity is proven</td>
+<td>numba (stretch)</td>
+</tr>
+<tr>
+<td>R9</td>
+<td>bt cross-check disagrees</td>
+<td>Gap &gt; tolerance</td>
+<td>Decompose by cause (§9.3)</td>
+<td>Document as known difference with evidence</td>
+</tr>
+<tr>
+<td>R10</td>
+<td>App down during an interview</td>
+<td>Sleep, memory errors</td>
+<td>Precomputed small files; visit before</td>
+<td>Static GitHub Pages report and README figures</td>
+</tr>
+</tbody>
+</table></div>
+<h2>15. Execution brief (paste into the build prompt)</h2>
+<div class="scroll"><pre><code>1. Build &quot;momentum-lab&quot;: event-driven daily-clock backtest engine (DataHandler/AsOfView, SignalGenerator, Portfolio+Risk, ExecutionSimulator fill_lag&gt;=1, CostModel, analytics) + vectorised oracle, Python 3.13, uv, pydantic configs, pytest+hypothesis, CI.
+2. Data: Ken French 49 industries daily/monthly 1926-07..2026-09 + FF factors, Mom, ST Rev (download in code, never commit raw); 9 original SPDR sector ETFs from Tiingo free/Alpaca.
+3. Pre-register H1-H6, baselines B0-B7, thresholds (t&gt;3, DSR&gt;=0.95, PBO&lt;0.5), trial budget 300 BEFORE any results; PREREG v2 before unlocking 2006-01..2026-09.
+4. Verify engine: hand-computed 3x6 trade CSV, poisoned-future test, synthetic null/planted-momentum/cost/reversal markets, oracle 1e-10, bt 1.4.1 within 5 bp/yr, QuantStats and purgedcv parity.
+5. Strategy: vol-scaled 12-1 industry momentum, top10/bottom10, 10% vol target; 1-month signal two-sided; cost sweep 0-50 bp.
+6. ML: ridge then LightGBM regression on 19 features (5 groups), demeaned next-month label, expanding walk-forward from 1947 with purge+embargo, CPCV 6/2, shuffled-label null.
+7. Feature study: correlation clusters, grouped held-out permutation importance (50 repeats, CIs), SHAP interventional vs tree-path, Kendall tau stability across folds, Nagel momentum-only test.
+8. Robustness: parameter heatmaps (plateau rule), sub-periods, fill-lag and vol-window sensitivity, Lo-adjusted Sharpe, HAC t, block bootstrap, Harvey-Liu BHY haircut.
+9. Append-only hash-chained experiments/ledger.jsonl for every trial; DSR uses all trials.
+10. Ship: README results-first, DESIGN.md, MODEL_CARD.md, LIMITATIONS.md, coverage+profile reports, Streamlit app + static Pages fallback; label everything &quot;hypothetical backtest&quot;.
+</code></pre></div></section><section id="roadmap" class="doc" hidden><h1>Roadmap: full task table</h1>
+<p>Format: <strong>ID | what | why | exact steps | inputs | outputs | acceptance test | depends on</strong>. <span class="crit" title="critical path">★</span> = critical path. No calendar; do tasks in ID order within a phase. Section references (§) point to PLAN.md.</p>
+<p>The <strong>cut line</strong> sits between P7 and P8. Everything above it is core; nothing in P8 starts before P7's exit criterion is met.</p>
+<hr />
+<h2>P0 Setup and pre-registration</h2>
+<p>Entry: plan approved. Exit: CI green; <code>PREREGISTRATION.md</code> v1 committed and tagged <code>prereg-v1</code>.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>What</th>
+<th>Why</th>
+<th>Exact steps</th>
+<th>Inputs</th>
+<th>Outputs</th>
+<th>Acceptance test</th>
+<th>Depends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S-1 <span class="crit" title="critical path">★</span></td>
+<td>Create repo and environment</td>
+<td>Reproducibility from day one</td>
+<td>Create public GitHub repo <code>momentum-lab</code>; <code>uv init --package momlab</code>; <code>.python-version</code> = 3.13; <code>uv add pandas numpy scipy statsmodels pyarrow pydantic pyyaml lightgbm scikit-learn shap matplotlib</code>; <code>uv add --dev pytest pytest-cov hypothesis ruff mypy pyinstrument bt quantstats purgedcv pandas-datareader</code>; commit <code>uv.lock</code></td>
+<td>PLAN §3.5, §4</td>
+<td>repo, <code>pyproject.toml</code>, <code>uv.lock</code></td>
+<td><code>uv sync --frozen</code> succeeds on a clean clone on Windows and in CI; <code>python -c "import lightgbm, shap, bt"</code> works</td>
+<td>—</td>
+</tr>
+<tr>
+<td>S-2 <span class="crit" title="critical path">★</span></td>
+<td>CI and task runner</td>
+<td>Every later task is checked automatically</td>
+<td>Write <code>.github/workflows/ci.yml</code> (§4); <code>Makefile</code> and <code>tasks.py</code> with targets; <code>tests/test_smoke.py</code></td>
+<td>§4</td>
+<td>CI workflow, task runner</td>
+<td>CI green on push; <code>python tasks.py test</code> runs locally</td>
+<td>S-1</td>
+</tr>
+<tr>
+<td>S-3</td>
+<td>Repo skeleton and docs stubs</td>
+<td>Structure before code avoids sprawl</td>
+<td>Create the folder tree of §4 with empty modules and docstrings; <code>docs/DECISIONS.md</code> with first entry "Why event-driven + oracle"</td>
+<td>§4</td>
+<td>skeleton</td>
+<td><code>ruff check</code> and <code>mypy src</code> pass</td>
+<td>S-1</td>
+</tr>
+<tr>
+<td>S-4 <span class="crit" title="critical path">★</span></td>
+<td>Pre-registration v1</td>
+<td>Fix hypotheses before seeing results (SG2)</td>
+<td>Copy §2.1–2.4 into <code>PREREGISTRATION.md</code>; add trial budget 300, research/test dates, cost grid, baselines; commit; <code>git tag prereg-v1</code></td>
+<td>PLAN §2</td>
+<td><code>PREREGISTRATION.md</code></td>
+<td>Tag exists; file hash recorded in README; no file in <code>results/</code> exists yet</td>
+<td>S-1</td>
+</tr>
+</tbody>
+</table></div>
+<h2>P1 Data</h2>
+<p>Entry: P0. Exit: all §5.3 rule tests pass on real data; D-4 gate passes.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>What</th>
+<th>Why</th>
+<th>Exact steps</th>
+<th>Inputs</th>
+<th>Outputs</th>
+<th>Acceptance test</th>
+<th>Depends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-1 <span class="crit" title="critical path">★</span></td>
+<td>Ken French downloader</td>
+<td>Primary data, survivorship-free</td>
+<td><code>data/kenfrench.py</code>: download the zips listed in RESEARCH_INVENTORY §4 to <code>data/raw/</code>; record URL, timestamp, sha256 in <code>data/manifest.json</code></td>
+<td>Ken French URLs</td>
+<td>raw zips, manifest</td>
+<td>Re-running is idempotent; manifest hashes stable; <code>data/raw</code> is gitignored</td>
+<td>S-2</td>
+</tr>
+<tr>
+<td>D-2 <span class="crit" title="critical path">★</span></td>
+<td>Parser and cleaner</td>
+<td>Silent bugs live in header blocks and -99.99 codes</td>
+<td>Parse each CSV block (VW, EW, n_firms, avg_size; confirm which blocks exist, inventory gap 2); apply §5.3 rules 1–5; write <code>industry_daily.parquet</code>, <code>industry_monthly.parquet</code>, <code>factors_daily.parquet</code></td>
+<td>raw zips</td>
+<td>processed parquet</td>
+<td>Unit tests on a fixture file; real-data test: 49 assets, first date 1926-07-01, last 2026-09-30, no -99.99 left</td>
+<td>D-1</td>
+</tr>
+<tr>
+<td>D-3 <span class="crit" title="critical path">★</span></td>
+<td>Daily vs monthly reconciliation</td>
+<td>Detects parsing, vintage or compounding bugs</td>
+<td>Compound daily to month; compare with monthly file</td>
+<td>processed parquet</td>
+<td><code>reports/data_reconciliation.csv</code></td>
+<td>≥ 99.5% of industry-months within 1e-4 (threshold Unverified); all mismatches listed</td>
+<td>D-2</td>
+</tr>
+<tr>
+<td>D-4 <span class="crit" title="critical path">★</span></td>
+<td>Momentum sanity gate</td>
+<td>If this fails, the timing is wrong (Phase 1 step 3)</td>
+<td>Quick vectorised 12-1 industry long-short on monthly data (notebook allowed, not a result); correlate with published Mom 1927–2005</td>
+<td>processed parquet</td>
+<td>number + chart in <code>docs/DECISIONS.md</code></td>
+<td>Correlation &gt; 0.5 passes; &lt; 0.3 stops the project until fixed (Unverified thresholds)</td>
+<td>D-3</td>
+</tr>
+<tr>
+<td>D-5</td>
+<td>Calendar module</td>
+<td>Rebalance dates on real trading days</td>
+<td><code>calendar.py</code>: trading days from the panel; month-end = last trading day of month</td>
+<td>processed parquet</td>
+<td>module + tests</td>
+<td>Tests with month ends on Fridays and holidays</td>
+<td>D-2</td>
+</tr>
+<tr>
+<td>D-6</td>
+<td>ETF downloader</td>
+<td>Tradable leg</td>
+<td>Sign up to Tiingo free; read and save its terms to <code>docs/DATA.md</code>; download 9 SPDR ETFs adjusted and unadjusted with volume; confirm inception dates; Alpaca Basic as cross-check</td>
+<td>API keys in <code>.env</code> (gitignored)</td>
+<td><code>etf_daily.parquet</code></td>
+<td>Returns from Tiingo vs Alpaca correlate &gt; 0.999 on overlapping days (Unverified threshold); terms recorded</td>
+<td>D-2</td>
+</tr>
+<tr>
+<td>D-7</td>
+<td>Spread estimate</td>
+<td>Realistic ETF costs</td>
+<td>Pull a sample of Alpaca quotes (e.g. 20 days per year since 2016, 15:50–16:00 ET) per ETF; compute median half-spread bps</td>
+<td>Alpaca</td>
+<td><code>etf_quotes_sample.parquet</code>, table in DATA.md</td>
+<td>Values recorded with method; IEX-only caveat stated</td>
+<td>D-6</td>
+</tr>
+<tr>
+<td>D-8</td>
+<td>Data doc</td>
+<td>Licences and choices in one place</td>
+<td>Write <code>docs/DATA.md</code>: sources, licences, schema, cleaning rules, vintages</td>
+<td>D-1…D-7</td>
+<td>DATA.md</td>
+<td>Every dataset has licence/terms and a hash</td>
+<td>D-7</td>
+</tr>
+</tbody>
+</table></div>
+<h2>P2 Engine</h2>
+<p>Entry: P1 exit. Exit: hand-computed tests pass; engine equals oracle to 1e-10.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>What</th>
+<th>Why</th>
+<th>Exact steps</th>
+<th>Inputs</th>
+<th>Outputs</th>
+<th>Acceptance test</th>
+<th>Depends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E-1 <span class="crit" title="critical path">★</span></td>
+<td>Events and queue</td>
+<td>Backbone of the event-driven design</td>
+<td><code>events.py</code> frozen dataclasses; <code>queue.py</code> with time-order assertions</td>
+<td>§3.3</td>
+<td>modules + tests</td>
+<td>Out-of-order event raises; Fill before Order raises</td>
+<td>S-3</td>
+</tr>
+<tr>
+<td>E-2 <span class="crit" title="critical path">★</span></td>
+<td>DataHandler and AsOfView</td>
+<td>Look-ahead impossible by construction</td>
+<td>Integer cursor over NumPy arrays; <code>LookAheadError</code>; <code>available_at</code> filtering; test vault masking</td>
+<td>processed parquet</td>
+<td><code>data/handler.py</code></td>
+<td>Accessing index &gt; cursor raises; vault masks 2006+ unless unlocked</td>
+<td>E-1, D-2</td>
+</tr>
+<tr>
+<td>E-3 <span class="crit" title="critical path">★</span></td>
+<td>Portfolio and drift</td>
+<td>Most silent P&amp;L bugs live here</td>
+<td>Positions in weights, drift with bar returns, P&amp;L, turnover from drifted weights</td>
+<td>E-2</td>
+<td><code>portfolio.py</code></td>
+<td>Drift test (0.5/0.5 → 0.55/0.45); turnover test</td>
+<td>E-2</td>
+</tr>
+<tr>
+<td>E-4 <span class="crit" title="critical path">★</span></td>
+<td>Execution and cost model</td>
+<td>Fill timing and costs</td>
+<td><code>ExecutionSimulator</code> with <code>fill_lag</code>; <code>FlatBps</code>, <code>SpreadImpactBorrow</code></td>
+<td>E-3</td>
+<td><code>execution.py</code>, <code>costs.py</code></td>
+<td>Fill at t+1 close; cost on Δw; borrow accrues daily on shorts</td>
+<td>E-3</td>
+</tr>
+<tr>
+<td>E-5 <span class="crit" title="critical path">★</span></td>
+<td>Rule signals and risk</td>
+<td>Baselines need them</td>
+<td><code>rules.py</code> (B1, B3, B4, B5); <code>risk.py</code> vol targeting with cap</td>
+<td>E-2</td>
+<td>modules</td>
+<td>Window unit tests; vol-target test</td>
+<td>E-4</td>
+</tr>
+<tr>
+<td>E-6 <span class="crit" title="critical path">★</span></td>
+<td>Engine loop and oracle</td>
+<td>Integration plus an independent check</td>
+<td><code>engine.run(config) -&gt; RunResult</code> (daily returns, weights, trades, costs); <code>oracle.py</code> vectorised with the same timing</td>
+<td>E-1…E-5</td>
+<td><code>engine.py</code>, <code>oracle.py</code></td>
+<td>Hand-computed 3×6 CSV test passes to 1e-12; engine == oracle to 1e-10 for B1, B3, B4, B5 at 0 and 10 bp; poisoned-future test passes</td>
+<td>E-5</td>
+</tr>
+<tr>
+<td>E-7</td>
+<td>Analytics</td>
+<td>Metrics everyone will probe</td>
+<td><code>metrics.py</code>, <code>bootstrap.py</code>, <code>factors.py</code> (HAC), Lo-adjusted Sharpe</td>
+<td>E-6</td>
+<td>modules</td>
+<td>Hand-example tests (§9.1)</td>
+<td>E-6</td>
+</tr>
+<tr>
+<td>E-8</td>
+<td>Ledger</td>
+<td>Count every trial</td>
+<td><code>ledger.py</code> append-only with hash chain; <code>engine.run</code> logs automatically when <code>log=True</code></td>
+<td>E-6</td>
+<td>module</td>
+<td>Tampering with a line breaks chain verification test</td>
+<td>E-6</td>
+</tr>
+</tbody>
+</table></div>
+<h2>P3 Verification</h2>
+<p>Entry: P2 exit. Exit: all synthetic and cross-check tests pass or have documented, quantified differences.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>What</th>
+<th>Why</th>
+<th>Exact steps</th>
+<th>Inputs</th>
+<th>Outputs</th>
+<th>Acceptance test</th>
+<th>Depends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V-1 <span class="crit" title="critical path">★</span></td>
+<td>Synthetic markets S1–S3</td>
+<td>Known answers catch subtle bias</td>
+<td><code>synthetic.py</code> generators; tests per §9.2</td>
+<td>E-6</td>
+<td>tests</td>
+<td>S1 false-positive rate within binomial 95% band of 5%; S2 CI coverage ≥ 90%; S3 exact</td>
+<td>E-6</td>
+</tr>
+<tr>
+<td>V-2</td>
+<td>Property tests</td>
+<td>Invariants beyond examples</td>
+<td>hypothesis tests per §9.1</td>
+<td>E-6</td>
+<td>tests</td>
+<td>Pass with 200 examples each</td>
+<td>E-6</td>
+</tr>
+<tr>
+<td>V-3 <span class="crit" title="critical path">★</span></td>
+<td>bt cross-check</td>
+<td>Independent open-source check</td>
+<td><code>tests/crosscheck/test_bt.py</code> per §9.3 step 2; write <code>reports/crosscheck.md</code> with gap decomposition</td>
+<td>E-6</td>
+<td>report</td>
+<td>Tolerance in PLAN §2.3 or documented cause</td>
+<td>E-6</td>
+</tr>
+<tr>
+<td>V-4</td>
+<td>QuantStats and purgedcv parity</td>
+<td>Independent metric checks</td>
+<td>Tests per §9.3 steps 3–4</td>
+<td>E-7</td>
+<td>tests</td>
+<td>Within 1e-6</td>
+<td>E-7</td>
+</tr>
+<tr>
+<td>V-5</td>
+<td>Performance profile</td>
+<td>Engine as product (perf)</td>
+<td><code>make profile</code> per PLAN §3.7</td>
+<td>E-6</td>
+<td><code>reports/profile.html</code>, table</td>
+<td>Full run time recorded; target &lt; 30 s or optimisation logged</td>
+<td>E-6</td>
+</tr>
+<tr>
+<td>V-6</td>
+<td>Coverage report</td>
+<td>Engine as product (quality)</td>
+<td><code>pytest --cov --cov-report=html</code></td>
+<td>all tests</td>
+<td><code>reports/coverage/</code></td>
+<td>Thresholds in §9.4</td>
+<td>V-1…V-4</td>
+</tr>
+</tbody>
+</table></div>
+<h2>P4 Baselines and rule research (research period only)</h2>
+<p>Entry: P3 exit. Exit: baseline table T1 and cost curve on 1927–2005; ledger has every run.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>What</th>
+<th>Why</th>
+<th>Exact steps</th>
+<th>Inputs</th>
+<th>Outputs</th>
+<th>Acceptance test</th>
+<th>Depends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R-1 <span class="crit" title="critical path">★</span></td>
+<td>Baselines B0–B5</td>
+<td>Reference points before any model</td>
+<td>Run each at 0/5/10/25/50 bp; log; metrics incl. HAC t, turnover</td>
+<td>E-7, E-8</td>
+<td><code>results/baselines_research.parquet</code>, T1</td>
+<td>Ledger lines = runs; B3 correlates with Mom as in D-4</td>
+<td>V-1, V-3</td>
+</tr>
+<tr>
+<td>R-2 <span class="crit" title="critical path">★</span></td>
+<td>Vol-scaled and crash-aware variants</td>
+<td>H2</td>
+<td>B4 and the crash-aware rule (§7.1 step 2)</td>
+<td>R-1</td>
+<td>results, F1</td>
+<td>Sharpe difference with block-bootstrap CI reported</td>
+<td>R-1</td>
+</tr>
+<tr>
+<td>R-3</td>
+<td>1-month signal (H4)</td>
+<td>Two-sided mean-reversion test</td>
+<td>B5 with both signs reported; pick sign on research period</td>
+<td>R-1</td>
+<td>results</td>
+<td>Both signs in ledger</td>
+<td>R-1</td>
+</tr>
+<tr>
+<td>R-4</td>
+<td>Factor regressions</td>
+<td>Is it just known factors?</td>
+<td>Regress on FF3 + Mom + ST Rev with HAC (lags 6, Unverified)</td>
+<td>R-2</td>
+<td>T5</td>
+<td>Alpha and betas with HAC t</td>
+<td>R-2</td>
+</tr>
+</tbody>
+</table></div>
+<h2>P5 ML and feature study (research period only)</h2>
+<p>Entry: P4. Exit: walk-forward and CPCV results; importance stability report.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>What</th>
+<th>Why</th>
+<th>Exact steps</th>
+<th>Inputs</th>
+<th>Outputs</th>
+<th>Acceptance test</th>
+<th>Depends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M-1 <span class="crit" title="critical path">★</span></td>
+<td>Feature pipeline</td>
+<td>All models share it</td>
+<td><code>features.py</code> 19 features with <code>available_at</code>; label per §7.2</td>
+<td>D-2</td>
+<td><code>features_monthly.parquet</code></td>
+<td>Window tests; L3, L5 tests; no NaN labels in training</td>
+<td>R-1</td>
+</tr>
+<tr>
+<td>M-2</td>
+<td>Validation splits</td>
+<td>Leak-free evaluation</td>
+<td><code>validation.py</code> walk-forward and CPCV with purge/embargo</td>
+<td>M-1</td>
+<td>module</td>
+<td><code>test_purge_removes_overlap</code>; split counts (15 for CPCV 6/2)</td>
+<td>M-1</td>
+</tr>
+<tr>
+<td>M-3 <span class="crit" title="critical path">★</span></td>
+<td>Ridge and LightGBM walk-forward</td>
+<td>H3</td>
+<td>Fit per fold (scalers in fold); predictions → <code>model_signal.py</code> → engine with the same portfolio mapping</td>
+<td>M-1, M-2</td>
+<td>predictions, results, T2</td>
+<td>Shuffled-label null: rank IC mean within ±0.01 and</td>
+<td>Sharpe t</td>
+</tr>
+<tr>
+<td>M-4 <span class="crit" title="critical path">★</span></td>
+<td>Nagel test and synthetic reversal</td>
+<td>Is ML momentum in disguise?</td>
+<td>Momentum-only LightGBM vs full; correlation with B4 returns; run on S4 market</td>
+<td>M-3</td>
+<td>results, F7</td>
+<td>S4: SHAP slope on mom_12_1 &lt; 0</td>
+<td>M-3</td>
+</tr>
+<tr>
+<td>M-5</td>
+<td>CPCV paths</td>
+<td>Variance of the backtest, PBO input</td>
+<td>Run CPCV for rules sweep and ML configs</td>
+<td>M-2</td>
+<td>path matrix</td>
+<td>Matrix shape (n_configs × 5 paths) stored</td>
+<td>M-3</td>
+</tr>
+<tr>
+<td>F-1 <span class="crit" title="critical path">★</span></td>
+<td>Correlation clusters</td>
+<td>Correlated features hide each other</td>
+<td>Spearman correlation on training data; Ward clustering on <code>1 − |ρ|</code> (<a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/auto_examples/inspection/plot_permutation_importance_multicollinear.html">scikit-learn example, today</a>, High); compare clusters with the 5 economic groups</td>
+<td>M-1</td>
+<td><code>results/clusters.json</code>, dendrogram</td>
+<td>Cluster assignment fixed in DECISIONS.md before importance runs</td>
+<td>M-1</td>
+</tr>
+<tr>
+<td>F-2 <span class="crit" title="critical path">★</span></td>
+<td>Grouped permutation importance</td>
+<td>Held-out importance, by group</td>
+<td>For each walk-forward test fold: permute each group jointly (50 repeats, seeded), score drop in rank IC</td>
+<td>M-3, F-1</td>
+<td><code>importance_by_fold.parquet</code>, F5</td>
+<td>Mean ± 2 std per group; null model's importances ≈ 0</td>
+<td>F-1</td>
+</tr>
+<tr>
+<td>F-3</td>
+<td>SHAP</td>
+<td>Direction and shape, not just size</td>
+<td>TreeExplainer interventional (background = 500 rows of training fold) and tree_path_dependent; sum by group (<a target="_blank" rel="noopener" href="https://shap.readthedocs.io/en/stable/generated/shap.TreeExplainer.html">SHAP docs, today</a>, High)</td>
+<td>M-3</td>
+<td>SHAP arrays, F7</td>
+<td>Group ranks from SHAP and permutation compared, disagreements explained</td>
+<td>M-3</td>
+</tr>
+<tr>
+<td>F-4</td>
+<td>Stability across folds</td>
+<td>Importance that moves is not a finding</td>
+<td>Kendall τ of group ranks between consecutive folds; share of folds where momentum ranks first (H5)</td>
+<td>F-2</td>
+<td>F6, stability table</td>
+<td>Reported with the H5 threshold verdict</td>
+<td>F-2</td>
+</tr>
+<tr>
+<td>F-5</td>
+<td>Importance caveats note</td>
+<td>Honest interpretation</td>
+<td>Write <code>docs/IMPORTANCE.md</code>: model-specific, not causal, correlated features, permutation creates unrealistic rows, interventional vs observational SHAP</td>
+<td>F-2…F-4</td>
+<td>doc</td>
+<td>Reviewed against §8.1 item 10</td>
+<td>F-4</td>
+</tr>
+</tbody>
+</table></div>
+<h2>P6 Robustness and locked test</h2>
+<p>Entry: P5. Exit: final tables with DSR, PBO, CIs; test opened exactly once; ETF leg done.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>What</th>
+<th>Why</th>
+<th>Exact steps</th>
+<th>Inputs</th>
+<th>Outputs</th>
+<th>Acceptance test</th>
+<th>Depends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B-1 <span class="crit" title="critical path">★</span></td>
+<td>Parameter stability surfaces</td>
+<td>Plateau vs spike</td>
+<td>Grid §7.4 via oracle (parity proven); heatmaps</td>
+<td>R-2</td>
+<td>F3</td>
+<td>Plateau rule verdict recorded</td>
+<td>R-2</td>
+</tr>
+<tr>
+<td>B-2</td>
+<td>Sensitivities</td>
+<td>Fragility</td>
+<td>Fill lag, vol window/target, rebalance day, VW vs EW, n_firms ≥ 5 filter</td>
+<td>R-2</td>
+<td>sensitivity table</td>
+<td>All in ledger</td>
+<td>R-2</td>
+</tr>
+<tr>
+<td>B-3 <span class="crit" title="critical path">★</span></td>
+<td>Multiple-testing correction</td>
+<td>Selection bias</td>
+<td>DSR over all ledger trials; PBO via CSCV on M-5 matrix; Harvey-Liu BHY haircut; t &gt; 3</td>
+<td>ledger, M-5</td>
+<td>T1/T2 columns</td>
+<td>Values match purgedcv where applicable</td>
+<td>B-1, M-5</td>
+</tr>
+<tr>
+<td>B-4</td>
+<td>Sub-periods and decay</td>
+<td>One lucky era?</td>
+<td>Sub-period table; rolling 10-year Sharpe; leave-one-decade-out</td>
+<td>R-2, M-3</td>
+<td>T4, F4</td>
+<td>All periods reported, none dropped</td>
+<td>R-2</td>
+</tr>
+<tr>
+<td>T-1 <span class="crit" title="critical path">★</span></td>
+<td>Pre-registration v2</td>
+<td>Freeze before the test</td>
+<td>Record final configs (one rule, one ML) and the exact commands; commit; tag <code>prereg-v2</code></td>
+<td>B-3</td>
+<td>PREREG v2</td>
+<td>Tag exists before any test-period run</td>
+<td>B-3</td>
+</tr>
+<tr>
+<td>T-2 <span class="crit" title="critical path">★</span></td>
+<td>Open the locked test once</td>
+<td>Honest out-of-sample</td>
+<td><code>MOMLAB_UNLOCK_TEST=1 python tasks.py test-period</code>; log unlock</td>
+<td>T-1</td>
+<td>T3, unlock log</td>
+<td>Exactly one unlock entry; results match the pre-registered commands</td>
+<td>T-1</td>
+</tr>
+<tr>
+<td>T-3</td>
+<td>ETF leg</td>
+<td>Tradability, H6</td>
+<td>Frozen strategy on 9 ETFs 1999–2026 with measured spreads, borrow sweep, capacity at $1m–$1bn</td>
+<td>D-7, T-1</td>
+<td>T7, capacity curve</td>
+<td>No ETF-specific tuning in ledger</td>
+<td>T-1</td>
+</tr>
+</tbody>
+</table></div>
+<h2>P7 Product</h2>
+<p>Entry: P6. Exit: app live; <code>make all</code> reproduces README numbers from a clean clone.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>What</th>
+<th>Why</th>
+<th>Exact steps</th>
+<th>Inputs</th>
+<th>Outputs</th>
+<th>Acceptance test</th>
+<th>Depends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W-1 <span class="crit" title="critical path">★</span></td>
+<td>README, DESIGN, MODEL_CARD, LIMITATIONS</td>
+<td>The reader's entry point</td>
+<td>Outlines in PLAN §11</td>
+<td>all results</td>
+<td>docs</td>
+<td>A friend can reproduce in &lt; 30 min (Unverified)</td>
+<td>T-2</td>
+</tr>
+<tr>
+<td>W-2</td>
+<td>Static report</td>
+<td>App fallback</td>
+<td><code>make report</code> → <code>site/</code>; Pages workflow</td>
+<td>results</td>
+<td>Pages site</td>
+<td>Loads on phone</td>
+<td>W-1</td>
+</tr>
+<tr>
+<td>A-1 <span class="crit" title="critical path">★</span></td>
+<td>Streamlit app</td>
+<td>Interactive demo</td>
+<td>Pages per PLAN §10; deploy steps</td>
+<td>results</td>
+<td>live app</td>
+<td>Every page loads &lt; 5 s after wake; memory &lt; 1 GB (Unverified)</td>
+<td>W-1</td>
+</tr>
+<tr>
+<td>I-1</td>
+<td>Fill interview kit with real numbers</td>
+<td>CV and talk tracks</td>
+<td>Fill blanks in INTERVIEW_KIT from results only</td>
+<td>results</td>
+<td>updated kit</td>
+<td>Every number traceable to a ledger trial id</td>
+<td>W-1</td>
+</tr>
+</tbody>
+</table></div>
+<p>---- <strong>cut line</strong> ----</p>
+<h2>P8 Stretch (independent, any order)</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>What</th>
+<th>Why</th>
+<th>Exact steps</th>
+<th>Acceptance test</th>
+<th>Depends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X-1</td>
+<td>numba event loop</td>
+<td>Performance story</td>
+<td>JIT the per-bar weight/P&amp;L update; keep the Python loop as reference</td>
+<td>Same outputs to 1e-12; speed-up in profile</td>
+<td>V-5</td>
+</tr>
+<tr>
+<td>X-2</td>
+<td>CPCV path viewer in app</td>
+<td>Shows variance of backtests</td>
+<td>Plot 5 paths per config</td>
+<td>Loads in app</td>
+<td>M-5, A-1</td>
+</tr>
+<tr>
+<td>X-3</td>
+<td>JKP global industry robustness</td>
+<td>Out-of-country test</td>
+<td>Download JKP (CC BY-NC 4.0) industry or momentum factors; compare</td>
+<td>Licence noted; results in appendix</td>
+<td>T-2</td>
+</tr>
+<tr>
+<td>X-4</td>
+<td>Alpaca paper-trading shadow</td>
+<td>Live data, no money</td>
+<td>Monthly signal → paper orders; log fills vs model</td>
+<td>3+ months of logs</td>
+<td>T-3</td>
+</tr>
+<tr>
+<td>X-5</td>
+<td>LambdaRank and monotone-constraint ablations</td>
+<td>Model choice study</td>
+<td>Same splits and ledger</td>
+<td>Counted in trial budget</td>
+<td>M-3</td>
+</tr>
+<tr>
+<td>X-6</td>
+<td>Blog post</td>
+<td>Communication</td>
+<td>Outline in PLAN §11</td>
+<td>Published</td>
+<td>W-1</td>
+</tr>
+</tbody>
+</table></div></section><section id="inventory" class="doc" hidden><h1>Research inventory</h1>
+<p>Date: 2026-11-06. Written for Phase 2 (planning) of the "momentum-lab" flagship project.</p>
+<h2>0. What I could read</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Location</th>
+<th>What was there</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Your computer (desktop-th7qhte)</td>
+<td>No folder is attached to this thread, so I could not list or read a local project folder.</td>
+<td><strong>Gap.</strong> If you have local notes, drafts or data, attach the folder and I will add them here.</td>
+</tr>
+<tr>
+<td>Shared project files (<code>/mnt/project-files/</code>)</td>
+<td>Empty before this thread.</td>
+<td>Nothing to read.</td>
+</tr>
+<tr>
+<td>Phase 1 research doc, <a target="_blank" rel="noopener" href="https://claude.ai/artifact/JtzjJ8gJiEeTHELeRgaAnv">"Quant strategy project: Phase 1 research"</a></td>
+<td>12 sections plus a source list, about 49k characters, written 2026-11-06. Read in full.</td>
+<td><strong>The only prior research.</strong> Inventoried below.</td>
+</tr>
+</tbody>
+</table></div>
+<p>So the "folder" is effectively one file. Phase 1 is substantial, so I did not redo it. I only re-verified what was stale, contradictory, or load-bearing for a decision (section 4).</p>
+<h2>1. What the Phase 1 doc contains</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Content</th>
+<th>Key finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recommendation</td>
+<td>Momentum over mean-reversion</td>
+<td>12-1 industry momentum with volatility scaling on Ken French 49 industry portfolios; sector ETFs as an implementability check; short-term reversal as baseline and feature.</td>
+</tr>
+<tr>
+<td>1. Problem and context</td>
+<td>Literature on momentum, reversal, pairs, stat-arb</td>
+<td>Momentum is broad and persistent; most published edges shrink out of sample (McLean &amp; Pontiff); t &gt; 3 hurdle (Harvey, Liu &amp; Zhu).</td>
+</tr>
+<tr>
+<td>2. Existing projects</td>
+<td>10 reference points (papers, Qlib, zipline-reloaded, backtesting.py, Jane Street Kaggle)</td>
+<td>Gap: a small transparent engine plus an overfitting-aware feature study.</td>
+</tr>
+<tr>
+<td>3. Pitfalls</td>
+<td>14 pitfalls with guards</td>
+<td>Look-ahead, label leakage, backtest overfitting, survivorship, costs, crashes, decay, misleading importance, LLM look-ahead, model risk, hypothetical-performance marketing, data licence.</td>
+</tr>
+<tr>
+<td>4. Frontier 2023–2026</td>
+<td>purgedcv 0.1.11, SR 26-2, LLM look-ahead papers, Nagel 2025 vs Kelly-Malamud-Zhou</td>
+<td>Lean toward Nagel: test whether ML beats vol-scaled momentum.</td>
+</tr>
+<tr>
+<td>5. Data and tools</td>
+<td>Ken French, JKP, Tiingo, Alpaca, yfinance, Sharadar; library list</td>
+<td>Ken French primary; no raw vendor data in the repo.</td>
+</tr>
+<tr>
+<td>6. Differentiation</td>
+<td>8 differentiators</td>
+<td>Engine tests, trial ledger with DSR/PBO, head-to-head, crash analysis, cost curve, model card, app.</td>
+</tr>
+<tr>
+<td>7. Evaluation design</td>
+<td>Metrics, 6 baselines, split design</td>
+<td>Research 1927–2005, locked test 2006–2026; walk-forward plus CPCV.</td>
+</tr>
+<tr>
+<td>8. Pre-build roadmap</td>
+<td>9 steps, about 9.5 h</td>
+<td>Gate: data loads, own 12-1 correlates with published Mom, pre-registration frozen.</td>
+</tr>
+<tr>
+<td>9. Delivery</td>
+<td>Streamlit Community Cloud, README outline, CV bullet format</td>
+<td>Precompute results; "hypothetical backtest" labels.</td>
+</tr>
+<tr>
+<td>10. Risks and open questions</td>
+<td>7 risks, 8 open questions</td>
+<td>Open: Ken French terms, rebalance frequency, cost proxy, long-short vs long-only, trial budget.</td>
+</tr>
+<tr>
+<td>11. Skills</td>
+<td>Technical and domain skills with sources</td>
+<td>Used as a seed for my learning path.</td>
+</tr>
+<tr>
+<td>12. Handoff</td>
+<td>Code block brief for Phase 2</td>
+<td>Used as the starting spec.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The doc tags each claim High, Medium, Low or Unverified, and lists about 50 sources opened on 2026-11-06. I reuse those sources and their tags without re-opening them, except where listed in section 4.</p>
+<h2>2. Key findings carried forward (with sources from Phase 1)</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Source</th>
+<th>Phase 1 tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Much of stock momentum is industry momentum</td>
+<td><a target="_blank" rel="noopener" href="https://ideas.repec.org/a/bla/jfinan/v54y1999i4p1249-1290.html">Moskowitz &amp; Grinblatt 1999</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>Vol management roughly doubles momentum Sharpe and reduces crashes</td>
+<td><a target="_blank" rel="noopener" href="https://econpapers.repec.org/RePEc:eee:jfinec:v:116:y:2015:i:1:p:111-120">Barroso &amp; Santa-Clara 2015</a> (re-opened today: abstract says "nearly doubles")</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Momentum crashes are partly forecastable (bear market plus rebound)</td>
+<td><a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20439">Daniel &amp; Moskowitz 2016</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>Short-term reversal mostly dies after costs</td>
+<td><a target="_blank" rel="noopener" href="https://ideas.repec.org/a/bla/jfinan/v61y2006i5p2365-2394.html">Avramov, Chordia &amp; Goyal 2006</a>; <a target="_blank" rel="noopener" href="https://nber.org/papers/w20721">Novy-Marx &amp; Velikov 2016</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>Published returns fall about 26% out of sample and 58% post-publication</td>
+<td><a target="_blank" rel="noopener" href="https://academicnewsletter.sufe.edu.cn/info/359722">McLean &amp; Pontiff 2016</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>t &gt; 3 hurdle for new factors</td>
+<td><a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20592">Harvey, Liu &amp; Zhu 2016</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>DSR and PBO quantify selection bias</td>
+<td><a target="_blank" rel="noopener" href="https://papers.ssrn.com/abstract=2460551">Bailey &amp; López de Prado 2014</a>, <a target="_blank" rel="noopener" href="https://papers.ssrn.com/abstract=2326253">Bailey et al. 2015</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>Momentum, liquidity, volatility dominate ML predictors</td>
+<td><a target="_blank" rel="noopener" href="https://nber.org/papers/w25398">Gu, Kelly &amp; Xiu 2020</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>"Virtuous complexity" may be vol-timed momentum in disguise</td>
+<td><a target="_blank" rel="noopener" href="https://www.nber.org/papers/w34104">Nagel 2025</a></td>
+<td>High (paper); Medium (Phase 1's reading)</td>
+</tr>
+<tr>
+<td>Impurity importance is biased; use held-out permutation importance</td>
+<td><a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/permutation_importance.html">scikit-learn docs</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>SR 26-2 (Apr 2026) supersedes SR 11-7</td>
+<td><a target="_blank" rel="noopener" href="https://www.federalreserve.gov/supervisionreg/srletters/sr2602.htm">SR 26-2</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>Streamlit Community Cloud: up to 2.7 GB RAM, sleeps after 12 h idle</td>
+<td><a target="_blank" rel="noopener" href="https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app">Streamlit docs</a></td>
+<td>High (re-verified today)</td>
+</tr>
+</tbody>
+</table></div>
+<h2>3. Contradictions and how the plan resolves them</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Contradiction</th>
+<th>Between</th>
+<th>Resolution in PLAN.md</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td>Phase 1 specifies a <strong>vectorised</strong> engine; your Phase 2 brief requires an <strong>event-driven</strong> engine.</td>
+<td>Phase 1 §12 vs this brief</td>
+<td>The event-driven engine is the product. A ~60-line vectorised implementation with the same timing rule is kept as an internal test oracle (two independent implementations must agree). Best of both.</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>Phase 1 assumed 40 hours; now no time limit.</td>
+<td>Phase 1 assumptions vs this brief</td>
+<td>Restore items Phase 1 cut: daily-clock engine, ETF leg with costs/borrow/capacity as <strong>core</strong>, CPCV and synthetic reversal market as core, paper-trading as stretch.</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>Phase 1 allowed an optional paid tier (≤ $30/month, Sharadar); now free only.</td>
+<td>Phase 1 vs coordinator assumption</td>
+<td>Drop Sharadar and paid Tiingo. Stock-level extension is out of scope (no free survivorship-free stock data).</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>Realism (borrow, capacity, fills) is required, but Ken French industry portfolios are <strong>not tradable</strong>.</td>
+<td>This brief vs Phase 1 data choice</td>
+<td>Two legs: industry leg answers "is there a signal?" with a cost sweep; ETF leg answers "can you trade it?" with spread, borrow and capacity. Stated in the README.</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>Phase 1 feature list implies a liquidity group (to compare with Gu-Kelly-Xiu), but Ken French industry files have <strong>no volume or spread data</strong>.</td>
+<td>Phase 1 §7 vs data</td>
+<td>Liquidity features are dropped at industry level; the closest proxies are average firm size and number of firms. The GKX comparison is stated as partial. (Gap found in this inventory.)</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>Phase 1 label: next-month cross-sectional <strong>rank</strong> (LambdaRank). Phase 1 also says ML forecast quality is measured by rank IC.</td>
+<td>Internal</td>
+<td>Primary model is LightGBM <strong>regression</strong> on cross-sectionally demeaned next-month return (simpler, boring); LambdaRank is an ablation. Rank IC is the scoring metric for both.</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>Interview-prep advice conflicts: one guide's "strong" CV example headlines a backtest return and drawdown (<a target="_blank" rel="noopener" href="https://www.quantt.co.uk/resources/quant-resume-guide">Quantt</a>); another says every backtest question is "how much should anyone believe it?" (<a target="_blank" rel="noopener" href="https://www.tradermath.org/articles/backtesting-interview-questions">Tradermath</a>).</td>
+<td>Two prep sources</td>
+<td>Follow Tradermath for research roles: CV bullets lead with engineering and validation; any return figure carries its DSR, trial count and cost assumption.</td>
+</tr>
+<tr>
+<td>C8</td>
+<td>Phase 1 says short-term reversal is the mean-reversion baseline; at <strong>industry</strong> level the 1-month signal may not reverse at all (my recollection of industry-momentum results; Unverified).</td>
+<td>Phase 1 §7 caveat ("industry-level may differ")</td>
+<td>Pre-register the sign of the 1-month industry signal as a <strong>two-sided</strong> open question rather than assume reversal.</td>
+</tr>
+</tbody>
+</table></div>
+<h2>4. Facts re-verified today (stale or load-bearing)</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>Phase 1 status</th>
+<th>Today's check</th>
+<th>Source (opened 2026-11-06)</th>
+<th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ken French 49 industries coverage</td>
+<td>1926 start "Unverified"</td>
+<td>Daily July 1, 1926 to Sept 30, 2026; monthly July 1926 to Sept 2026. Industries assigned at end of June using Compustat SIC (CRSP SIC fallback).</td>
+<td><a target="_blank" rel="noopener" href="https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/Data_Library/det_49_ind_port.html">det_49_ind_port.html</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>Ken French terms of use</td>
+<td>Unverified</td>
+<td>No terms or licence on the library page; detail page says "Copyright Eugene F. Fama and Kenneth R. French". So: download in code, never commit raw files, publish derived results with attribution.</td>
+<td><a target="_blank" rel="noopener" href="https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">data_library.html</a>, detail page above</td>
+<td>High (fact); the publish-derived-results policy is my judgement, Unverified</td>
+</tr>
+<tr>
+<td>Missing-value codes</td>
+<td>"e.g. -99.99"</td>
+<td>"Missing data are indicated by -99.99 or -999."</td>
+<td><a target="_blank" rel="noopener" href="https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">data_library.html</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>File names</td>
+<td>n/a</td>
+<td><code>49_Industry_Portfolios_CSV.zip</code>, <code>49_Industry_Portfolios_daily_CSV.zip</code>, <code>F-F_Momentum_Factor(_daily)_CSV.zip</code>, <code>F-F_ST_Reversal_Factor(_daily)_CSV.zip</code> under <code>/ftp/</code></td>
+<td>same</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Library versions</td>
+<td>LightGBM 4.7</td>
+<td>pandas 3.1.1 (2026-11-04), numpy 2.5.4, scikit-learn 1.9.1, lightgbm 4.7.0, shap 0.54.1, streamlit 1.67.0, statsmodels 0.15.0, pandas-datareader 0.11.1 (2026-06-24, needs pandas ≥ 2.1.4), purgedcv 0.1.11, quantstats 0.0.86, pydantic 2.14.3, pytest 9.2.0, hypothesis 6.170.15, uv 0.13.7</td>
+<td>PyPI JSON API for each package</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Python version constraint</td>
+<td>n/a</td>
+<td>numpy and shap need ≥ 3.12; vectorbt, zipline-reloaded and nautilus_trader need &lt; 3.15. Choose <strong>3.13</strong>.</td>
+<td>PyPI <code>requires_python</code> fields</td>
+<td>High (constraints); Medium (choice)</td>
+</tr>
+<tr>
+<td>Independent backtester options</td>
+<td>zipline-reloaded, backtesting.py</td>
+<td><strong>bt 1.4.1</strong> (MIT, 2026-10-10, weight-based <code>WeighTarget</code> + <code>Rebalance</code>, <code>commissions</code> callable); vectorbt 1.2.0 (Apache 2.0 <strong>with Commons Clause</strong>); backtrader 1.9.78 (GPLv3, last release 2023-04-19); zipline-reloaded 3.2.1 (Apache-2.0); backtesting.py 0.6.6 (AGPL, single asset); nautilus_trader 1.231.0 (LGPL, event-driven, HFT-oriented)</td>
+<td>PyPI; <a target="_blank" rel="noopener" href="https://pypi.org/project/bt/1.4.1/">bt on PyPI</a>; bt source <code>bt/algos.py</code>, <code>bt/backtest.py</code> on GitHub; vectorbt <code>LICENSE.md</code> on GitHub</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Streamlit Community Cloud limits</td>
+<td>2.7 GB, 12 h sleep</td>
+<td>Same: 0.078–2 cores, 690 MB–2.7 GB, 50 GB; page says limits are approximate "as of February 2024" and "may change at any time"</td>
+<td><a target="_blank" rel="noopener" href="https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app">Streamlit docs</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>CI cost</td>
+<td>Unverified</td>
+<td>Standard GitHub-hosted runners are free in public repositories</td>
+<td><a target="_blank" rel="noopener" href="https://docs.github.com/en/billing/concepts/product-billing/github-actions">GitHub Actions billing</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>Trading costs of momentum vs reversal at scale</td>
+<td>Novy-Marx &amp; Velikov only</td>
+<td>Live-trade data (about $1 trillion, 1998–2011): momentum survives costs at large size; short-term reversals do not</td>
+<td><a target="_blank" rel="noopener" href="https://www.aqr.com/Insights/Research/Working-Paper/Trading-Costs-of-Asset-Pricing-Anomalies">Frazzini, Israel &amp; Moskowitz (AQR)</a></td>
+<td>High</td>
+</tr>
+</tbody>
+</table></div>
+<h2>5. Gaps (not answered by Phase 1 or today)</h2>
+<ol>
+<li>Your local folder: unread (not attached).</li>
+<li>Whether the 49-industry CSV includes "number of firms" and "average firm size" blocks and annual BE/ME blocks (I expect it does; verify in task D-2). Medium.</li>
+<li>Whether pandas-datareader 0.11.1 works with pandas 3.x. Unverified; the plan uses its own parser and keeps pandas-datareader only as a cross-check.</li>
+<li>Tiingo free-tier terms (Phase 1 used a competitor's comparison page, Medium). Verify at sign-up (task D-6).</li>
+<li>Real ETF bid-ask spreads: the SSGA XLF page showed no value for the 30-day median spread today. Spread assumptions stay a sweep until measured (task D-7).</li>
+<li>Barroso &amp; Santa-Clara's volatility window (I recall six months of daily returns; abstract does not say). Unverified; treated as a pre-registered parameter with a sensitivity check.</li>
+<li>Citadel and Hudson River Trading internship pages failed to load; their requirements are not in the audience research.</li>
+</ol>
+<h2>6. Claims still Unverified (carried into the plan, flagged there)</h2>
+<ul>
+<li>Industry 1-month returns may continue rather than reverse (C8).</li>
+<li>Expected correlation level between own industry 12-1 and the published stock-level Mom factor (the plan uses a gate of &gt; 0.5 with a debug stop below 0.3; both numbers are my judgement).</li>
+<li>Compute estimates (event loop over about 25,000 daily bars in under 30 s on a laptop).</li>
+<li>"Honest result" expectations from Phase 1 §7 (modest net Sharpe, decay after 1993).</li>
+<li>That a cost slider and trial ledger are rare in student projects (my judgement).</li>
+</ul></section><section id="audience" class="doc" hidden><h1>What internship screeners look for</h1>
+<p>Research date: 2026-11-06. Every source below was opened today. Postings are for Summer 2027 or the 2027 cycle unless noted. Aggregator copies are tagged Medium because I did not see the firm's own page.</p>
+<h2>1. Evidence</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Firm and role</th>
+<th>What the posting says (quoted or close paraphrase)</th>
+<th>Source</th>
+<th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td>Jane Street, Quantitative Researcher Internship</td>
+<td>Interns "analyse large datasets, build and test models, and create new trading strategies"; want "A strong programmer who's comfortable with Python"; "We don't expect you to have a background in finance"; research experience a plus; clear communication.</td>
+<td><a target="_blank" rel="noopener" href="https://janestreet.com/join-jane-street/position/7524506002">janestreet.com</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>Two Sigma, Quantitative Researcher Intern 2027</td>
+<td>"Use the scientific method to develop sophisticated investment models"; "Apply quantitative techniques like machine learning"; "Performed an in-depth research project, examining real-world data"; "You don't need a background in finance."</td>
+<td><a target="_blank" rel="noopener" href="https://careers.twosigma.com/careers/JobDetail/New-York-New-York-United-States-Quantitative-Researcher-Intern-2027-Summer/13945">careers.twosigma.com</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>IMC, Quantitative Research Intern (BS/MS) 2027</td>
+<td>"Superior numerical, analytical, and critical thinking skills"; "passion for research"; "eager to develop trading intuition"; Python, C or C++ "highly desired".</td>
+<td><a target="_blank" rel="noopener" href="https://www.imc.com/ap/careers/jobs/4907399101">imc.com</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>Optiver, Quantitative Research Internship (2027 start, Amsterdam)</td>
+<td>Turn "financial market data into quantitative insights and trading strategies"; test hypotheses on large datasets; "Excellent research, analytical and modelling skills"; ML and time-series analysis a plus.</td>
+<td><a target="_blank" rel="noopener" href="https://optiver.com/join-us/jobs/quantitative-research-and-machine-learning/amsterdam/quantitative-research-internship-2027-start">optiver.com</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>A5</td>
+<td>Aquatic Capital, Quantitative Researcher Intern 2027</td>
+<td>"design, implement, and evaluate research systems components using rigorous statistical methodologies"; "Proficiency in Python"; "conducting and completing statistical or applied mathematical research"; math competitions a plus.</td>
+<td><a target="_blank" rel="noopener" href="https://job-boards.greenhouse.io/aquaticcapitalmanagement/jobs/8489186002">greenhouse.io</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>D. E. Shaw, Quantitative Analyst Intern 2027</td>
+<td>"exploring a variety of statistical modeling techniques and writing software to analyze financial data"; Python data manipulation preferred; "no previous finance experience is necessary".</td>
+<td><a target="_blank" rel="noopener" href="https://www.kadoa.com/quant/job/d-e-shaw-careers-quantitative-analyst-intern-new-york-summer-2027-14f62c93">Kadoa aggregator copy</a></td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>JPMorganChase, QR Markets Summer Analyst 2027</td>
+<td>"Conduct alpha research, calibrate model parameters"; "Demonstrates research skills (through coursework, projects, or academic work)"; "Presents findings clearly to non-technical audiences"; preferred: "manage projects independently", ML and data science.</td>
+<td><a target="_blank" rel="noopener" href="https://www.builtinnyc.com/job/2027-quantitative-research-markets-summer-internship-analyst-united-states/10498025">Built In NYC copy</a></td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>A8</td>
+<td>JPMorganChase, QR Risk and Treasury Summer Associate 2027</td>
+<td>"Conduct back testing and assess strategies"; "Assess models for conceptual soundness, risks, and enhancements"; Python and/or C++; "Excellent communication skills".</td>
+<td><a target="_blank" rel="noopener" href="https://aces.umb.edu/jobs/jpmorganchase-2027-quantitative-research-risk-and-treasury-summer-internship-associate-united-states/">UMB careers copy</a></td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>A9</td>
+<td>Goldman Sachs, AWM Quantitative Strategists Summer Analyst</td>
+<td>"construct quantitative models"; "advanced training in mathematics, programming and logical thinking"; "talents for research, analysis".</td>
+<td><a target="_blank" rel="noopener" href="https://higher.gs.com/roles/171550">higher.gs.com</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>BlackRock, 2027 Quantitative Masters Internship (Investments)</td>
+<td>Systematic team "emphasizes data-driven insights, scientific testing of investment ideas"; "Coding &amp; programming skills (Python or similar)"; "Ability to distill and communicate large amounts of information succinctly"; "Passion for investing".</td>
+<td><a target="_blank" rel="noopener" href="https://careers.blackrock.com/job/san-francisco/2027-quantitative-masters-internship-program-investments-portfolio-management-san-francisco/45831/100661849744">careers.blackrock.com</a></td>
+<td>High</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Tradermath, "Backtesting interview questions" (prep site, author unnamed, Sept 2026)</td>
+<td>Interviews test whether you can judge how much a result should be trusted: leakage first, then sample size, selection, costs; purged and embargoed CV; survivorship and point-in-time data; count every variant tried (deflated Sharpe); costs and capacity; "Identify your project's weaknesses and fixes before the interviewer does." Theme: "given how this result was produced, how much should anyone believe it?"</td>
+<td><a target="_blank" rel="noopener" href="https://www.tradermath.org/articles/backtesting-interview-questions">tradermath.org</a></td>
+<td>Medium (prep site)</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Quantt, "Quant resume guide" (prep site)</td>
+<td>"Recruiters skim for evidence: repos, competitions, research, measurable outcomes"; "Interviewers will probe anything on your CV"; bullet = "action + method + quantified result".</td>
+<td><a target="_blank" rel="noopener" href="https://www.quantt.co.uk/resources/quant-resume-guide">quantt.co.uk</a></td>
+<td>Low–Medium (prep site; see conflict C7 in the inventory)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Not covered: Citadel and Hudson River Trading pages failed to load today. Sell-side risk roles are represented only by A8.</p>
+<h2>2. Signals the project must send</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Signal</th>
+<th>Evidence</th>
+<th>Plan elements that deliver it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SG1</td>
+<td>Strong, clean Python</td>
+<td>A1, A3, A5, A6, A7, A8, A10</td>
+<td>Event-driven engine with typed interfaces (§3), tests and coverage report (§9), CI, profile (§3.7), pinned env (§4)</td>
+</tr>
+<tr>
+<td>SG2</td>
+<td>Scientific method: hypothesis first, then test</td>
+<td>A2, A4, A10</td>
+<td>Pre-registration before results (§2), falsification tests, two-sided hypotheses, locked test vault (§5.4)</td>
+</tr>
+<tr>
+<td>SG3</td>
+<td>Statistical rigour</td>
+<td>A5, A6, A4, P1</td>
+<td>HAC t-stats, DSR, PBO, Harvey-Liu haircut, block bootstrap, purged walk-forward and CPCV (§7, §8)</td>
+</tr>
+<tr>
+<td>SG4</td>
+<td>A finished, in-depth project on real data</td>
+<td>A2, A5, A7</td>
+<td>100 years of daily industry data plus a tradable ETF leg; shipped repo, app, model card (§10, §11)</td>
+</tr>
+<tr>
+<td>SG5</td>
+<td>Can backtest and assess a model's soundness</td>
+<td>A8, A7, P1</td>
+<td>Engine verification triangle: hand-computed trades, synthetic known-answer markets, bt cross-check (§9); model card in SR 26-2 spirit (§11)</td>
+</tr>
+<tr>
+<td>SG6</td>
+<td>Calibrated trust in own results</td>
+<td>P1</td>
+<td>Honesty protocol with 10 self-deception tests (§8), trial ledger, 5 proactive weaknesses (§12)</td>
+</tr>
+<tr>
+<td>SG7</td>
+<td>Explains clearly to non-specialists</td>
+<td>A1, A7, A8, A10</td>
+<td>60-second demo, 3- and 10-minute talk tracks, README results-first, app with a cost slider (§1, §11, §12)</td>
+</tr>
+<tr>
+<td>SG8</td>
+<td>Applied ML, with judgement</td>
+<td>A2, A4, A7</td>
+<td>LightGBM vs linear vs rules progression, Nagel test, grouped permutation importance and SHAP with stability (§7)</td>
+</tr>
+<tr>
+<td>SG9</td>
+<td>Market intuition</td>
+<td>A3, A10</td>
+<td>Costs, borrow, capacity, crash analysis, regime sub-periods, why the edge might exist and what kills it (§2, §8)</td>
+</tr>
+<tr>
+<td>SG10</td>
+<td>Independent ownership</td>
+<td>A2, A4, A7</td>
+<td>Solo end-to-end build with an experiment log, risk register and decisions log (§6, §14)</td>
+</tr>
+</tbody>
+</table></div>
+<h2>3. What the project does not do for you</h2>
+<ul>
+<li>Several postings say finance knowledge is not required (A1, A2, A6). Depth of method and code matters more than finance vocabulary, so the plan spends effort on verification and statistics, not on exotic finance.</li>
+<li>Math competitions and probability are screened separately (A5 lists IMO and Putnam). No project replaces probability and mental-math prep; the learning path flags this at the end.</li>
+<li>Trading-firm roles (A3, A4) emphasise options and fast decisions. This project is a medium-frequency research project; say so rather than stretch it.</li>
+</ul></section><section id="interview" class="doc" hidden><h1>Interview kit</h1>
+<p>Rule: every number comes from your results and is traceable to a ledger <code>trial_id</code>. Never invent or round up. Brackets are blanks.</p>
+<h2>1. CV bullet templates</h2>
+<p>Format: action + method + quantified result (<a target="_blank" rel="noopener" href="https://www.quantt.co.uk/resources/quant-resume-guide">Quantt</a>, Low–Medium; Phase 1's <a target="_blank" rel="noopener" href="https://www.businessinsider.in/googles-former-hr-boss-says-this-is-the-key-to-a-perfect-resume/articleshow/54925993.cms">Bock X-Y-Z</a>, Medium). For research roles, lead with how much the result can be trusted (<a target="_blank" rel="noopener" href="https://www.tradermath.org/articles/backtesting-interview-questions">Tradermath</a>, Medium).</p>
+<ol>
+<li><strong>Engine:</strong> "Built an event-driven backtest engine in Python ([N] lines, [M] tests, [C]% coverage) that rules out look-ahead by construction; verified against hand-computed trades, synthetic markets with known answers, and the open-source bt library (within [x] bp/yr)."</li>
+<li><strong>Research:</strong> "Tested vol-scaled industry momentum on 100 years of data under a pre-registered protocol: net Sharpe [a] at [c] bp costs (1927–2005), [b] in a locked 2006–2026 test, deflated Sharpe [d] across [T] logged trials."</li>
+<li><strong>ML + importance:</strong> "Compared a LightGBM ranker with [F] features against rule-based momentum using purged walk-forward CV; [result: e.g. 'no significant gain, Sharpe difference [Δ], 90% CI [lo, hi]']; grouped permutation importance attributed [p]% to [group], stable in [k] of [K] folds."</li>
+</ol>
+<p>Variant for DS/risk roles: swap bullet 2 for "Wrote a model card and validation suite (SR 26-2 spirit) covering conceptual soundness, outcomes analysis and [n] documented limitations."</p>
+<h2>2. Twenty-five probing questions with answer outlines</h2>
+<p><strong>Engine and verification</strong>
+1. <em>How do you know there is no look-ahead?</em> AsOfView with cursor bound; fill_lag ≥ 1 validated; poisoned-future test (decisions bit-identical when future set to NaN or extreme); engine equals vectorised oracle; bt agreement.
+2. <em>Why event-driven rather than vectorised?</em> Mirrors live order flow; timing becomes structural; extends to fills and costs per order. Cost: speed and complexity, handled by the oracle for sweeps once parity is proven (<a target="_blank" rel="noopener" href="https://www.quantstart.com/articles/Event-Driven-Backtesting-with-Python-Part-I">QuantStart</a>).
+3. <em>Walk me through one rebalance.</em> Month-end close t: mark-to-market, signal from data ≤ t, risk scaling, order, fill at t+1 close with cost on |Δw|, returns from t+2.
+4. <em>Why did your engine and bt differ by [x]?</em> Decomposition from <code>reports/crosscheck.md</code>: trade timing convention, commission handling, cash residuals, floating point.
+5. <em>What was the hardest bug?</em> Your real story; show the test that now guards it.
+6. <em>How fast is it and where is the time spent?</em> Profile numbers; what you optimised and why you stopped.</p>
+<p><strong>Data</strong>
+7. <em>Why industry portfolios, not stocks?</em> Survivorship-free and free; much of stock momentum is industry momentum (<a target="_blank" rel="noopener" href="https://ideas.repec.org/a/bla/jfinan/v54y1999i4p1249-1290.html">Moskowitz &amp; Grinblatt</a>); trade-off: not tradable, so the ETF leg exists.
+8. <em>Is your data point-in-time?</em> Industry membership set each June from prior-year SIC (Ken French details); lagged n_firms/size; vintage hashes; residual risk: CRSP revisions.
+9. <em>How did you handle missing data?</em> -99.99/-999 → NaN; exclude asset from that cross-section; never forward-fill returns.</p>
+<p><strong>Strategy and finance</strong>
+10. <em>Why should momentum exist at all?</em> Under-reaction and slow diffusion vs risk compensation (crash risk); evidence across assets; what kills it: crowding, decay, rebounds.
+11. <em>Why skip the most recent month?</em> Short-term reversal at stock level; at industry level you tested the 1-month sign two-sided (your H4 result).
+12. <em>What happened in 2009?</em> Momentum crash in the rebound after a bear market (<a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20439">Daniel &amp; Moskowitz</a>); what vol scaling saved in your data.
+13. <em>How did you model costs, and would this survive real trading?</em> Industry: sweep and break-even; ETF: measured spreads, borrow, square-root impact, capacity curve; <a target="_blank" rel="noopener" href="https://www.aqr.com/Insights/Research/Working-Paper/Trading-Costs-of-Asset-Pricing-Anomalies">Frazzini, Israel &amp; Moskowitz</a> on real costs.
+14. <em>What is your capacity?</em> ETF curve; AUM where impact eats half the alpha; industry leg has none by design.
+15. <em>Is your alpha just the Mom factor?</em> Factor regression with HAC t; alpha vs loadings.</p>
+<p><strong>Statistics and overfitting</strong>
+16. <em>How many things did you try?</em> Exact ledger count; trial budget pre-registered; DSR and PBO computed on all of them.
+17. <em>Explain the deflated Sharpe ratio.</em> Probability the true Sharpe exceeds the expected maximum Sharpe from N trials of noise, adjusting for skew, kurtosis and length (<a target="_blank" rel="noopener" href="https://papers.ssrn.com/abstract=2460551">Bailey &amp; López de Prado</a>).
+18. <em>Why not ordinary k-fold?</em> Serial dependence and overlapping labels leak; purge and embargo; walk-forward plus CPCV.
+19. <em>How confident is your Sharpe?</em> Standard error, Lo adjustment for autocorrelation (<a target="_blank" rel="noopener" href="https://ideas.repec.org/a/taf/ufajxx/v58y2002i4p36-52.html">Lo 2002</a>), block bootstrap CI; 20 years of test is short.
+20. <em>Why t &gt; 3?</em> Multiple testing across the profession (<a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20592">Harvey, Liu &amp; Zhu</a>); your own haircut (<a target="_blank" rel="noopener" href="https://people.duke.edu/~charvey/Research/Published_Papers/P120_Backtesting.PDF">Harvey &amp; Liu</a>).
+21. <em>What would convince you the strategy is dead?</em> Pre-registered kill criteria; monitoring triggers from the model card.</p>
+<p><strong>ML and feature importance</strong>
+22. <em>Did ML beat simple momentum?</em> Your H3 result with CI; Nagel's argument; momentum-only ablation.
+23. <em>What does permutation importance actually measure?</em> Drop in held-out score when a feature group's link to the label is broken; model-specific; correlated features share credit, hence grouping (<a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/auto_examples/inspection/plot_permutation_importance_multicollinear.html">scikit-learn</a>).
+24. <em>SHAP vs permutation: which do you trust?</em> Different questions: SHAP attributes predictions (direction, shape), permutation measures predictive reliance; interventional vs path-dependent SHAP treat correlation differently (<a target="_blank" rel="noopener" href="https://shap.readthedocs.io/en/stable/generated/shap.TreeExplainer.html">SHAP docs</a>); agreement across both and across folds is the finding.
+25. <em>If you had a quant's budget, what next?</em> Point-in-time stock data, live paper trading, transaction-cost data, other countries, a proper execution model.</p>
+<h2>3. Five weaknesses to disclose proactively</h2>
+<ol>
+<li>Industry portfolios are not tradable; the ETF leg has only 9 assets and ~27 years.</li>
+<li>The locked test (2006–2026) is short for Sharpe inference; the CI is wide.</li>
+<li>No liquidity features at industry level, so the comparison with Gu-Kelly-Xiu is partial.</li>
+<li>Costs are modelled, not observed (except sampled ETF spreads from IEX-only quotes); borrow is assumed.</li>
+<li>I already knew the momentum literature, including the 2009 crash, before designing the test; pre-registration limits but cannot remove that bias.</li>
+</ol>
+<h2>4. Talk tracks</h2>
+<p><strong>3 minutes</strong>
+- 0:00 Question: does momentum survive honest testing, and does ML add anything?
+- 0:30 Why it matters: most backtests fool their authors; my product is an engine that can't peek, plus a protocol that counts every trial.
+- 1:00 Engine: daily clock, as-of view, next-day fills; three independent checks agree within [x].
+- 1:40 Results: net Sharpe [a] at [c] bp; break-even [y] bp; deflated Sharpe [d] across [T] trials; locked test [b].
+- 2:20 ML: [result]; importance says [group], stable in [k]/[K] folds; it's [not] momentum in disguise.
+- 2:45 What I'd do next, and one weakness I'd fix first.</p>
+<p><strong>10 minutes</strong>
+1. (1 min) Question, hypotheses, what was pre-registered.
+2. (2 min) Engine design: timing diagram, interfaces, the poisoned-future test, a bug it caught.
+3. (1 min) Verification triangle and the bt difference decomposition.
+4. (1 min) Data: why industries, point-in-time issues, ETF leg.
+5. (2 min) Results: baseline table, cost curve, crash months, sub-periods, locked test.
+6. (1.5 min) ML and importance: grouped permutation vs SHAP, stability, Nagel test.
+7. (1 min) Five weaknesses, and what result would change my mind.
+8. (0.5 min) Engineering: tests, coverage, profile, reproducibility in one command.</p></section><section id="learning" class="doc" hidden><h1>Learning path</h1>
+<p>Ordered by when the roadmap needs each concept. Resources are primary where possible. Links marked (P1) were opened by the Phase 1 thread; (today) were opened by me on 2026-11-06. Books without a link are named but were not opened, so treat them as Unverified recommendations.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Concept</th>
+<th>Needed by</th>
+<th>Resources</th>
+<th>Self-check exercise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simple vs log returns, compounding, annualisation</td>
+<td>D-2, D-3</td>
+<td>pandas time-series guide (today): https://pandas.pydata.org/docs/user_guide/timeseries.html ; <a target="_blank" rel="noopener" href="https://ideas.repec.org/a/taf/ufajxx/v58y2002i4p36-52.html">Lo 2002</a> (today) on annualising Sharpe</td>
+<td>By hand: daily returns +1%, −1%, +2% → compound return; explain why mean of log returns ≠ log of mean return</td>
+</tr>
+<tr>
+<td>2</td>
+<td>pandas alignment, shifting, month-end resampling</td>
+<td>D-2…D-5</td>
+<td>pandas time-series guide (above)</td>
+<td>Write <code>mom_12_1</code> for one asset with <code>shift</code> and verify against a hand-computed 15-month example</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Reproducible Python: uv, lockfiles, pydantic configs, CI</td>
+<td>S-1, S-2</td>
+<td><a target="_blank" rel="noopener" href="https://docs.github.com/en/billing/concepts/product-billing/github-actions">GitHub Actions billing</a> (today) for free CI; uv and pydantic official docs (not opened, Unverified)</td>
+<td>Fresh clone → <code>uv sync --frozen</code> → tests green, on Windows and in CI</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Testing: unit, property-based, fixtures, coverage</td>
+<td>S-2, E-<em>, V-</em></td>
+<td><a target="_blank" rel="noopener" href="https://hypothesis.readthedocs.io/en/latest/">Hypothesis docs</a> (today); pytest docs (not opened)</td>
+<td>Write a hypothesis test that fails on a deliberately bugged turnover function</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Event-driven backtester design</td>
+<td>E-1…E-6</td>
+<td><a target="_blank" rel="noopener" href="https://www.quantstart.com/articles/Event-Driven-Backtesting-with-Python-Part-I">QuantStart Event-Driven Backtesting Part I</a> (today)</td>
+<td>Draw the sequence diagram for one rebalance; mark exactly which data each component may see</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Momentum: cross-sectional, industry, time-series</td>
+<td>D-4, R-1</td>
+<td><a target="_blank" rel="noopener" href="https://ideas.repec.org/a/bla/jfinan/v48y1993i1p65-91.html">Jegadeesh &amp; Titman 1993</a> (P1); <a target="_blank" rel="noopener" href="https://ideas.repec.org/a/bla/jfinan/v54y1999i4p1249-1290.html">Moskowitz &amp; Grinblatt 1999</a> (P1, today); <a target="_blank" rel="noopener" href="https://papers.ssrn.com/abstract=2089463">Moskowitz, Ooi &amp; Pedersen 2012</a> (P1)</td>
+<td>Write 12-1 industry momentum as maths; say why the last month is skipped</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Volatility scaling and momentum crashes</td>
+<td>R-2</td>
+<td><a target="_blank" rel="noopener" href="https://econpapers.repec.org/RePEc:eee:jfinec:v:116:y:2015:i:1:p:111-120">Barroso &amp; Santa-Clara 2015</a> (today); <a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20439">Daniel &amp; Moskowitz 2016</a> (P1)</td>
+<td>Explain why losers have high beta after a bear market and what happens in a rebound</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Transaction costs, turnover, capacity</td>
+<td>E-4, T-3</td>
+<td><a target="_blank" rel="noopener" href="https://nber.org/papers/w20721">Novy-Marx &amp; Velikov</a> (P1); <a target="_blank" rel="noopener" href="https://www.aqr.com/Insights/Research/Working-Paper/Trading-Costs-of-Asset-Pricing-Anomalies">Frazzini, Israel &amp; Moskowitz</a> (today)</td>
+<td>Given monthly one-way turnover 60% and 10 bp cost, compute annual cost drag</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Performance statistics and their uncertainty</td>
+<td>E-7</td>
+<td><a target="_blank" rel="noopener" href="https://ideas.repec.org/a/taf/ufajxx/v58y2002i4p36-52.html">Lo 2002</a> (today); statsmodels HAC (<code>cov_type="HAC"</code>, docs page opened today defers to <code>get_robustcov_results</code>)</td>
+<td>Compute a Sharpe SE for 240 monthly returns with Sharpe 0.5; compare with a block bootstrap</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Factor regressions</td>
+<td>R-4</td>
+<td><a target="_blank" rel="noopener" href="https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">Ken French Data Library</a> (today)</td>
+<td>Regress B3 on FF3 + Mom; interpret alpha and Mom beta</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Time-series CV: walk-forward, purging, embargo, CPCV</td>
+<td>M-2, M-5</td>
+<td><a target="_blank" rel="noopener" href="https://www.wiley-vch.de/de/fachgebiete/finanzen-wirtschaft-recht/advances-in-financial-machine-learning-978-1-119-48208-6">López de Prado 2018, ch. 7, 12</a> (P1, table of contents); <a target="_blank" rel="noopener" href="https://pypi.org/project/purgedcv/">purgedcv</a> (P1)</td>
+<td>Explain why a 1-month label plus a 1-day fill lag needs a purge of 1 month + 1 day</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Gradient boosting and ranking metrics</td>
+<td>M-3</td>
+<td><a target="_blank" rel="noopener" href="https://lightgbm.readthedocs.io/en/stable/Parameters.html">LightGBM parameters</a> (P1); <a target="_blank" rel="noopener" href="https://nber.org/papers/w25398">Gu, Kelly &amp; Xiu 2020</a> (P1)</td>
+<td>Explain what <code>min_data_in_leaf</code> does to overfitting with 49 assets per month</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Multiple testing: DSR, PBO, haircut Sharpe</td>
+<td>B-3</td>
+<td><a target="_blank" rel="noopener" href="https://papers.ssrn.com/abstract=2460551">Bailey &amp; López de Prado 2014</a> (P1); <a target="_blank" rel="noopener" href="https://papers.ssrn.com/abstract=2326253">Bailey et al. 2015</a> (P1); <a target="_blank" rel="noopener" href="https://people.duke.edu/~charvey/Research/Published_Papers/P120_Backtesting.PDF">Harvey &amp; Liu, Backtesting</a> (today); <a target="_blank" rel="noopener" href="https://www.nber.org/papers/w20592">Harvey, Liu &amp; Zhu</a> (P1)</td>
+<td>Compute PSR for a toy series and match purgedcv; explain why Harvey &amp; Liu reject the 50% haircut rule</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Feature importance: permutation, grouping, SHAP</td>
+<td>F-1…F-5</td>
+<td><a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/permutation_importance.html">scikit-learn permutation importance</a> (P1); <a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/auto_examples/inspection/plot_permutation_importance_multicollinear.html">multicollinear example</a> (today); <a target="_blank" rel="noopener" href="https://shap.readthedocs.io/en/stable/generated/shap.TreeExplainer.html">SHAP TreeExplainer</a> (today); <a target="_blank" rel="noopener" href="https://papers.nips.cc/paper/7062-a">Lundberg &amp; Lee 2017</a> (P1)</td>
+<td>On a toy dataset with two copies of one feature, show single-feature permutation importance near zero and group importance high</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Complexity critique</td>
+<td>M-4</td>
+<td><a target="_blank" rel="noopener" href="https://www.nber.org/papers/w34104">Nagel 2025</a> (P1); <a target="_blank" rel="noopener" href="https://econpapers.repec.org/RePEc:bla:jfinan:v:79:y:2024:i:1:p:459-503">Kelly, Malamud &amp; Zhou 2024</a> (P1)</td>
+<td>In two sentences each, state both sides and the test you run</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Model risk and documentation</td>
+<td>W-1</td>
+<td><a target="_blank" rel="noopener" href="https://www.federalreserve.gov/supervisionreg/srletters/sr2602.htm">SR 26-2</a> (P1)</td>
+<td>Write the model card's "monitoring triggers" section from memory</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Separate track, not covered by the project:</strong> probability, brainteasers and mental maths, which several firms screen for directly (for example Aquatic lists IMO and Putnam; see TARGET_AUDIENCE.md). Run it in parallel from the start. Classic texts (for example Zhou's "A Practical Guide to Quantitative Finance Interviews") were not opened here; Unverified.</p></section></main>
+<script>
+(function(){
+  var ids=[].map.call(document.querySelectorAll("section.doc"),function(s){return s.id});
+  function show(){
+    var h=(location.hash||"").slice(1); if(ids.indexOf(h)<0) h=ids[0];
+    ids.forEach(function(id){document.getElementById(id).hidden=(id!==h)});
+    document.querySelectorAll("nav a").forEach(function(a){ if(a.dataset.tab===h) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  }
+  window.addEventListener("hashchange",function(){show();window.scrollTo(0,0)});
+  show();
+})();
+</script>

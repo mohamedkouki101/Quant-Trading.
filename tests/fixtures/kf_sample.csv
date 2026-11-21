@@ -1,0 +1,43 @@
+This file was created using the 202609 CRSP database.
+It contains value- and equal-weighted returns for 3 industry portfolios (test fixture).
+
+Missing data are indicated by -99.99 or -999.
+
+
+  Average Value Weighted Returns -- Monthly
+,Agric,Food ,Fun  
+202301,   1.00,  -2.50, -99.99
+202302,   0.50,  10.00,   3.00
+202303,  -1.25,   -999,   4.00
+202304,   2.00,   1.00,   0.00
+
+  Average Equal Weighted Returns -- Monthly
+,Agric,Food,Fun
+202301,   2.00,  -1.00, -99.99
+202302,   0.25,   5.00,   1.50
+202303,  -0.75,   2.00,   2.00
+202304,   1.00,   0.50,  -0.50
+
+  Average Value Weighted Returns -- Annual
+,Agric,Food,Fun
+2023,  10.00,  20.00,  30.00
+
+  Number of Firms in Portfolios
+,Agric,Food,Fun
+202301,      3,     40,      0
+202302,      4,     41,      5
+202303,      5,     42,      6
+202304,      6,     43,      7
+
+  Average Firm Size
+,Agric,Food,Fun
+202301,     99.80,     31.19,    -99.99
+202302,    100.00,     32.00,     10.00
+202303,    101.00,     33.00,     11.00
+202304,    102.00,     34.00,     12.00
+
+  Sum of BE / Sum of ME
+,Agric,Food,Fun
+2022,      0.50,      0.60,      0.70
+
+Copyright 2026 Eugene F. Fama and Kenneth R. French

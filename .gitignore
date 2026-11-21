@@ -1,0 +1,27 @@
+# Python / tooling
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Secrets (keys live in .env only)
+.env
+
+# Data: downloaded by code, never committed (data/manifest.json and data/README.md are committed)
+data/raw/
+data/interim/
+data/processed/
+
+# Generated reports
+reports/coverage/
+reports/profile.html
+
+# Row-level derived data (it reproduces Ken French values): keep local, commit summaries only
+reports/data_flags_*.csv
+reports/data_reconciliation.csv

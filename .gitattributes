@@ -1,0 +1,7 @@
+# Files whose sha256 is recorded or hash-chained must keep LF line endings on every OS,
+# otherwise a Windows checkout with core.autocrlf=true would change their hash.
+PREREGISTRATION.md text eol=lf
+experiments/*.jsonl text eol=lf
+data/manifest.json text eol=lf
+# Ken French-style fixtures keep their CRLF bytes exactly as the real files have them.
+tests/fixtures/*.csv -text
