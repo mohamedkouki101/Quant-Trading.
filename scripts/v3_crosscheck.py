@@ -11,8 +11,11 @@ from __future__ import annotations
 import sys
 import warnings
 
-from momlab import crosscheck, paths, synthetic
-from momlab.config import RunConfig
+import numpy as np
+
+from momlab import crosscheck, gitinfo, paths, synthetic
+from momlab.config import RunConfig, load_config
+from momlab.data.handler import DataHandler
 
 SEED = 2026
 TOL_ANN_BP = 5.0
@@ -29,6 +32,45 @@ COLUMNS = (
     "bt vs replica: max daily gap",
     "bt vs replica: max weight gap",
 )
+
+
+def real_data_section() -> list[str]:
+    """Engine vs bt on the Ken French VW panel, research period, once ``prereg-v1`` exists."""
+    if not gitinfo.git_tag_exists("prereg-v1"):
+        return ["Not run: strategy returns on real data wait for the `prereg-v1` tag (C17)."]
+    if not (paths.PROCESSED_DIR / "industry_daily.parquet").exists():
+        return ["Not run: processed data missing (`uv run python tasks.py data`)."]
+    base = load_config(paths.ROOT / "configs" / "base.yaml")
+    dh = DataHandler.from_processed(base.weighting, start=base.start, end=base.end)
+    rows = []
+    while dh.advance() is not None:
+        rows.append(dh.bar_returns(dh.dates[dh.cursor]))
+    m = synthetic.Market(dh.dates, list(dh.assets), np.vstack(rows), np.zeros(len(dh.dates)))
+    out = [
+        f"Ken French 49 industries, value-weighted, {m.dates[0].date()} to {m.dates[-1].date()},",
+        "RF set to 0 in both (bt's cash earns nothing). Only engine-vs-bt gaps are shown, no",
+        "performance figures.",
+        "",
+        "| Strategy | Cost (bp) | Days | Ann. gap (bp/yr) | Daily corr | Max daily gap | "
+        "bt vs replica: max daily gap |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for strategy in ("b1", "b3", "b4"):
+        for bps in (0.0, 10.0):
+            cfg = base.model_copy(
+                update={"strategy": strategy, "cost": base.cost.model_copy(update={"bps": bps})}
+            )
+            c = crosscheck.bt_crosscheck(cfg, m)
+            out.append(
+                f"| {strategy.upper()} | {bps:g} | {c.n_days} | {c.ann_gap_bp:.4f} | "
+                f"{c.corr:.10f} | {c.max_abs_gap:.2e} | {c.max_abs_gap_bt_convention:.2e} |"
+            )
+    out += [
+        "",
+        "bt starts with `1e6 / peak engine NAV` dollars so its sizing loop stays within its",
+        "1e-8-dollar tolerance (DECISIONS 018).",
+    ]
+    return out
 
 
 def main() -> int:
@@ -105,12 +147,11 @@ def main() -> int:
         "- **(c) Cash residuals.** None: fractional positions (`integer_positions=False`).",
         "- **(d) Floating point.** The 0 bp rows: daily gaps of order 1e-15.",
         "",
-        "## Real data",
+        "## Real data (research period)",
         "",
-        "Not run yet: strategy returns on real data wait for the `prereg-v1` tag (rule 7,",
-        "correction C17). `tests/crosscheck/test_bt.py::"
-        "test_bt_matches_engine_real_research_period`",
-        "runs B1, B3 and B4 on the research period at 0 bp once the tag exists.",
+    ]
+    lines += real_data_section()
+    lines += [
         "",
     ]
     out = paths.REPORTS_DIR / "crosscheck.md"

@@ -34,6 +34,9 @@ import pandas as pd
 
 FloatArray = npt.NDArray[np.float64]
 Seed = int | np.random.SeedSequence
+# Each worker imports NumPy, pandas, SciPy and statsmodels (several hundred MB of commit
+# memory on Windows); 16 workers exhausted the page file on 2026-11-21 (DECISIONS 019).
+MAX_WORKERS = 8
 
 
 @dataclass(frozen=True)
@@ -204,9 +207,10 @@ def s2_trial(seed: Seed) -> tuple[bool, bool]:
 def run_trials(
     fn: Callable[[np.random.SeedSequence], Any], seed: int, n: int, workers: int | None = None
 ) -> list[Any]:
-    """``fn`` on ``SeedSequence(seed).spawn(n)`` in a process pool (results in seed order)."""
+    """``fn`` on ``SeedSequence(seed).spawn(n)`` in a process pool of at most ``MAX_WORKERS``
+    processes (results in seed order)."""
     seeds = np.random.SeedSequence(seed).spawn(n)
-    workers = workers or min(n, os.cpu_count() or 1)
+    workers = workers or min(n, os.cpu_count() or 1, MAX_WORKERS)
     if workers == 1:
         return [fn(s) for s in seeds]
     with ProcessPoolExecutor(max_workers=workers) as pool:

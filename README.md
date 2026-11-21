@@ -16,27 +16,17 @@ built. It becomes the results-first README at task W-1.
 
 ## Current focus
 
-**P3 complete except the real-data bt check (needs `prereg-v1`); stopped before P4 (needs Kouki's go-ahead).** Done: V-1 to V-6; S-1, S-3, D-1, D-2, D-5, E-0 to E-5, E-7, E-8; E-6 except the real-data check (needs `prereg-v1`); D-3 closed as failed (Kouki). Waiting on Kouki: push/CI, tag `prereg-v1`.
+**P0–P3 done (CI green to confirm); D-4 gate passed (0.7864); next: P4 baselines on Kouki's go-ahead.** Done: V-1 to V-6, S-4, E-6, D-4; S-1, S-3, D-1, D-2, D-5, E-0 to E-5, E-7, E-8; D-3 closed as failed (Kouki). Waiting on Kouki: CI check, commit/push, P4 go-ahead.
 
 ## Waiting on Kouki
 
-1. **S-2 — first commit, push, CI check.** Commit everything (`.gitignore` keeps `.venv/`,
-   `.env`, `data/raw|interim|processed/` out), push to GitHub, and confirm the Actions run
-   "CI" is green. Then tick the Kouki box under S-2 in `IMPLEMENTATION_PLAN.md`.
-   Suggested message: `S-1, S-2: uv package, task runner and CI`.
-2. **S-4 — tag the pre-registration.** After the commit above (it includes
-   `PREREGISTRATION.md`), check the hash in PowerShell:
-   `(Get-FileHash PREREGISTRATION.md -Algorithm SHA256).Hash` should equal the sha256 under
-   "Pre-registration" below (case aside). Then `git tag prereg-v1` and `git push origin prereg-v1`.
-   Tick the Kouki box under S-4 and change "tag `prereg-v1`: not yet" to "done" below.
-   **D-4 (momentum sanity gate) will not run until this tag exists.**
-3. **D-6 / D-7 (later)** need free Tiingo and Alpaca accounts with keys in `.env`.
-4. **Confirm the HAC t reading (DECISIONS 012 c)** before D-4/R-1: the pre-registered
-   "Newey-West t of monthly net returns" is computed on monthly *excess* returns (net minus RF),
-   because the long-short book earns RF on its collateral. Say if you want the literal raw-net t instead.
-5. After `prereg-v1` is tagged, `uv run python tasks.py test-data` runs the open real-data boxes
-   (E-6 engine = oracle, V-3 bt cross-check, research period only).
-6. **Go-ahead for P4** (baselines on 1927–2005). P4 also needs the tag (D-4 first) and your answer on item 4.
+1. **S-2 — confirm CI is green.** The first commit is pushed. Open the repo's Actions tab and
+   check that the run "CI" passed; then tick the Kouki box under S-2 in `IMPLEMENTATION_PLAN.md`.
+2. **Commit and push the work since "1st Commit"** (suggested messages in the session summary).
+3. **Go-ahead for P4** (baselines B0–B5 on 1927–2005, logged in the trial ledger). D-4 passed.
+4. **D-6 / D-7 (later)** need free Tiingo and Alpaca accounts with keys in `.env`.
+5. **Run PowerShell only** for this project. A `uv run` from WSL rebuilds `.venv` for Linux
+   and breaks the Windows environment (happened on 2026-11-21).
 
 ## Progress
 
@@ -46,10 +36,10 @@ Legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked · ⏸ de
 
 | Phase | Goal | Status |
 |---|---|---|
-| P0 Setup & pre-registration | Repo, env, CI, PREREG v1 | 🟨 local work done; Kouki checkpoints open |
-| P1 Data | Clean, hashed Ken French panels; momentum sanity gate | 🟨 D-1, D-2, D-5 done; D-3 failed (recorded); D-4 waits for `prereg-v1`; D-6/D-7 need keys |
-| P2 Engine | Event-driven engine + vectorised oracle | 🟨 E-0 to E-8 built and tested; one box open: E-6 real-data engine = oracle (waits for `prereg-v1`) |
-| P3 Verification | Synthetic markets, bt/QuantStats parity, profile | 🟨 V-1…V-6 done; real-data bt check waits for `prereg-v1` |
+| P0 Setup & pre-registration | Repo, env, CI, PREREG v1 | 🟨 tag `prereg-v1` pushed; CI green to confirm (S-2) |
+| P1 Data | Clean, hashed Ken French panels; momentum sanity gate | 🟨 D-1, D-2, D-4, D-5 done; D-3 failed (recorded); D-6/D-7 need keys; D-8 open |
+| P2 Engine | Event-driven engine + vectorised oracle | ✅ engine = oracle ≤ 1e-10 on synthetic and real research-period data |
+| P3 Verification | Synthetic markets, bt/QuantStats parity, profile | ✅ incl. real-data bt check (DECISIONS 018) |
 | P4 Baselines | B0–B5 on research period, cost curve | ⬜ |
 | P5 ML & feature study | Ridge, LightGBM, importance | ⬜ |
 | P6 Robustness & locked test | DSR/PBO, PREREG v2, test opened once, ETF leg | ⬜ |
@@ -63,7 +53,7 @@ Legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked · ⏸ de
 | S-1 | Environment and package | ✅ | uv 0.12.17 (Windows), CPython 3.13.15; see DECISIONS 003 |
 | S-2 | Task runner and CI | 🟨 | Done locally; Kouki: push and confirm CI green |
 | S-3 | Repo skeleton and decision log | ✅ | |
-| S-4 | Pre-registration v1 | 🟨 | Written, sha256 recorded; Kouki: commit + tag `prereg-v1` |
+| S-4 | Pre-registration v1 | ✅ | Tag `prereg-v1` pushed; clarification D1 (HAC t on excess returns) in §7 |
 
 ### P1 Data
 
@@ -72,7 +62,7 @@ Legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked · ⏸ de
 | D-1 | Ken French downloader | ✅ | |
 | D-2 | Parser and cleaner | ✅ | 49 assets, 1926-07-01 → 2026-09-30; blocks listed in DATA.md |
 | D-3 | Daily vs monthly reconciliation | ⛔ | Closed as FAILED per Kouki (24.6% within 1e-4; rounding + EW by construction); DECISIONS 008 |
-| D-4 | Momentum sanity gate | ⬜ | Gate: correlation with Mom > 0.5 |
+| D-4 | Momentum sanity gate | ✅ | Correlation 0.7864 with Mom, 1927-07–2005-12 (942 months); reports/d4_gate.png (DECISIONS 020) |
 | D-5 | Calendar | ✅ | |
 | D-6 | ETF downloader | ⬜ | Needs Tiingo + Alpaca keys from Kouki; may be deferred |
 | D-7 | ETF spread estimate | ⬜ | May be deferred |
@@ -88,7 +78,7 @@ Legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked · ⏸ de
 | E-3 | Portfolio and drift | ✅ | |
 | E-4 | Execution and cost models | ✅ | |
 | E-5 | Rule signals and risk | ✅ | |
-| E-6 | Engine loop and oracle | 🟨 | Done except the real-data engine = oracle test, which waits for the `prereg-v1` tag |
+| E-6 | Engine loop and oracle | ✅ | Real research period: engine = oracle ≤ 1e-10 for B1/B3/B4/B5 at 0 and 10 bp |
 | E-7 | Analytics | ✅ | Metrics, stationary bootstrap, HAC factor regression; HAC t on monthly excess returns (DECISIONS 012, confirm) |
 | E-8 | Trial ledger | ✅ | Hash chain plus head record; `run(config, log=True)` appends one trial (DECISIONS 013) |
 
@@ -98,7 +88,7 @@ Legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked · ⏸ de
 |---|---|---|---|
 | V-1 | Synthetic markets S1–S3 | ✅ | S1 11/200 seeds with abs(t) > 2 (band 4–16); S2 CI covers 0 in 47/50; S3 exact (DECISIONS 014) |
 | V-2 | Property tests | ✅ | 4 hypothesis properties × 200 examples; doubling property catches a no-drift mutant |
-| V-3 | bt cross-check | 🟨 | Synthetic: pass at 0 bp (gap ~1e-15/day); cost gaps fully explained by bt's commission rule (reports/crosscheck.md, DECISIONS 015). Real-data part waits for `prereg-v1` |
+| V-3 | bt cross-check | ✅ | Synthetic and real: 0 bp gap ≤ 1.7e-15/day; cost gaps explained by bt's commission rule (reports/crosscheck.md, DECISIONS 015, 018) |
 | V-4 | QuantStats parity | ✅ | Sharpe, Sortino, MDD, CAGR identical to QuantStats (≤ 5.6e-17); purgedcv part moved to B-2 (C18) |
 | V-5 | Performance profile | ✅ | 11.15 s (B3), 10.45 s (B4) for 26,155 bars × 49 assets; target < 30 s met (reports/profile.md) |
 | V-6 | Coverage and golden regression | ✅ | 98.53% overall, core four files 100% (enforced in check/ci/workflow); golden metrics for B1/B3/B4/B5 (DECISIONS 017) |
@@ -107,16 +97,18 @@ Legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked · ⏸ de
 
 | Check | Target | Latest |
 |---|---|---|
-| `tasks.py check` | passes | passes (2026-11-08, after S-4) |
-| Test count / coverage | coverage ≥ 85% | 59 tests / 100% (1 statement so far) |
+| `tasks.py check` | passes | passes (2026-11-21) |
+| Test count / coverage | coverage ≥ 85% | 248 tests (+20 real-data) / 99%; core files 100% |
 | D-3 reconciliation | ≥ 99.5% within 1e-4 | — |
-| D-4 own 12-1 vs Mom correlation (1927–2005) | > 0.5 | — |
-| Engine vs oracle | ≤ 1e-10 | — |
+| D-4 own 12-1 vs Mom correlation (1927–2005) | > 0.5 | 0.7864 (pass, 2026-11-21) |
+| Engine vs oracle | ≤ 1e-10 | pass: synthetic 8/8, real research period 8/8 (2026-11-21) |
 
 ## Pre-registration
 
 `PREREGISTRATION.md` v1 sha256 (LF line endings, see `.gitattributes`):
-`a920ca3f04aeed8e9e0aafe890a94fc224b8ef15f788cfe8e4baccb9045a6823` · tag `prereg-v1`: not yet
+`a920ca3f04aeed8e9e0aafe890a94fc224b8ef15f788cfe8e4baccb9045a6823` · tag `prereg-v1`: **done** (commit 4b04bc1).
+Since the tag only §7 Deviations has changed (clarification D1, 2026-11-21), so the current file
+hash differs from v1 by design; `git show prereg-v1:PREREGISTRATION.md` is the frozen v1.
 
 ## Session log (evidence)
 
@@ -147,6 +139,8 @@ Command output behind each tick, newest last.
 - **V-5** (2026-11-09): `tasks.py profile` exit 0 → reports/profile.md: 49 assets × 26,155 bars, B3 11.15 s (2,346 bars/s), B4 10.45 s (2,504 bars/s), peak memory 64.9 MiB; target < 30 s met. Time shares (B4): portfolio 50.8%, engine loop 34.1%, data handler 10.0%, rest < 2% each. Machine: Windows 11, Python 3.13.15. `tasks.py check` exit 0, 244 passed.
 - **V-6** (2026-11-10): tests/regression/test_golden_synthetic.py 2 passed (failed first: no golden file; generated with GOLDEN_UPDATE=1, then passed twice unchanged); a 1e-8 change in b3.sharpe is reported. Core gate: engine, execution, costs, data/handler 336 statements, 0 missed, 100%; probe on oracle.py (98%) prints "Coverage failure".
 - **P3 exit** (2026-11-10): `tasks.py ci` exit 0: uv sync --frozen, ruff clean, 80 files formatted, mypy clean (34 files), 246 passed, coverage 98.53% (≥ 85%), core files 100%. `tasks.py test-data`: 9 passed, 11 skipped (8 engine = oracle, 3 bt; wait for `prereg-v1`). No ledger written.
+- **prereg-v1 / real data** (2026-11-21): tag `prereg-v1` on commit 4b04bc1, local and on origin (read-only check). Kouki's first `tasks.py test-data`: 19 passed, 1 failed (bt B4 real: bt's sizing loop hit its 1e-8-dollar tolerance at a bt value of 1.15e9 on 1994-04-04). New test `test_bt_survives_a_book_that_compounds_into_billions` failed first with the same bt error, then passed after scaling bt's starting capital (DECISIONS 018). reports/crosscheck.md real section: at 0 bp B1/B3/B4 annual gap 0.0000 bp/yr, corr 1.0000000000, max daily gap ≤ 1.67e-15; at 10 bp gaps ≤ 0.35 bp/yr, explained by bt's rule to ≤ 1.84e-11. Kouki chose option (a) for the HAC t (clarification D1 in PREREGISTRATION.md §7). A 16-worker pool exhausted Windows commit memory in S2; capped at 8 (DECISIONS 019). `tasks.py check` exit 0, 248 passed; `tasks.py test-data` 20 passed.
+- **D-4** (2026-11-21): tests/unit/test_d4_gate.py 3 passed (collection failed first: no script). `scripts/d4_momentum_gate.py` exit 0: correlation 0.7864 with the published Mom factor over 942 months 1927-07-31 … 2005-12-31 (gate > 0.5); hand check Steel 1950-07: window 1949-07 … 1950-05, Π(1+R) − 1 = 0.5400487655 (code) vs 0.540049 (plain Python on 4-dp inputs). `tasks.py check` exit 0, 251 passed.
 
 ## Change log
 
@@ -179,3 +173,5 @@ Command output behind each tick, newest last.
 | 2026-11-09 | V-4 | QuantStats parity tests for Sharpe, Sortino, max drawdown and CAGR |
 | 2026-11-09 | V-5 | scripts/profile_engine.py and `tasks.py profile` (wall time, bars/s, tracemalloc peak, pyinstrument component shares); table in DESIGN.md |
 | 2026-11-10 | V-6 | Golden synthetic regression (B1/B3/B4/B5 from the strategy YAMLs) and 100% coverage gate for the four core files in tasks.py and CI |
+| 2026-11-21 | S-4, E-6, V-3 | Tag confirmed; real-data engine = oracle and bt checks pass; bt capital scaling; HAC t clarification D1; pool capped at 8 workers |
+| 2026-11-21 | D-4 | Momentum sanity gate script (vectorised 12-1 industry L/S vs Mom), toy tests, chart; passed at 0.7864 |

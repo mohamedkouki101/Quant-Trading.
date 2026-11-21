@@ -116,7 +116,7 @@ Depends: S-1. Must be done before any strategy return is computed (that includes
 Acceptance:
 - [x] `results/` holds no result files (only `.gitkeep`)
 - [x] sha256 recorded in README
-- [ ] **Kouki:** commit `PREREGISTRATION.md` and run `git tag prereg-v1`; tick this box in README when done
+- [x] **Kouki:** commit `PREREGISTRATION.md` and run `git tag prereg-v1`; tick this box in README when done — **done: tag `prereg-v1` on commit 4b04bc1, pushed (checked 2026-11-21)**
 
 **P0 exit check:** all S-tasks ticked, Kouki boxes ticked. Update README phase status.
 
@@ -171,13 +171,13 @@ Acceptance:
 ### D-4 Momentum sanity gate ★
 Depends: D-3 and S-4 (pre-registration first).
 
-- [ ] `scripts/d4_momentum_gate.py`: vectorised 12-1 industry long-short (top 10 / bottom 10, equal weight) on monthly value-weighted data, **1927-07 to 2005-12 only**; correlation with the published Mom factor
-- [ ] Hand-check the 12-1 window on one industry for one month and write the numbers in the decision entry (guards L2)
-- [ ] Entry in `docs/DECISIONS.md` with the correlation, the period, and a small chart saved to `reports/d4_gate.png`
-- [ ] This is a sanity check, not a result: do not write to `results/`, do not add it to the trial ledger
+- [x] `scripts/d4_momentum_gate.py`: vectorised 12-1 industry long-short (top 10 / bottom 10, equal weight) on monthly value-weighted data, **1927-07 to 2005-12 only**; correlation with the published Mom factor
+- [x] Hand-check the 12-1 window on one industry for one month and write the numbers in the decision entry (guards L2)
+- [x] Entry in `docs/DECISIONS.md` with the correlation, the period, and a small chart saved to `reports/d4_gate.png`
+- [x] This is a sanity check, not a result: do not write to `results/`, do not add it to the trial ledger
 
 Acceptance:
-- [ ] Correlation > 0.5 → pass. Between 0.3 and 0.5 → write down the likely reasons and ask Kouki before going on. Below 0.3 → stop; the timing is wrong, debug before any other task
+- [x] Correlation > 0.5 → pass. Between 0.3 and 0.5 → write down the likely reasons and ask Kouki before going on. Below 0.3 → stop; the timing is wrong, debug before any other task
 
 ### D-5 Calendar
 Depends: D-2.
@@ -309,7 +309,7 @@ Depends: E-0 to E-5.
 
 Acceptance:
 - [x] Hand-computed 3×6 test matches to 1e-12
-- [ ] Engine equals oracle to 1e-10 on daily returns for B1, B3, B4, B5 at 0 and 10 bp, on synthetic data in CI and on real research-period data in a `data`-marked test — **synthetic: passed (8/8); real: written, skipped until `prereg-v1` is tagged** (DECISIONS 010 h)
+- [x] Engine equals oracle to 1e-10 on daily returns for B1, B3, B4, B5 at 0 and 10 bp, on synthetic data in CI and on real research-period data in a `data`-marked test — **synthetic: 8/8; real research period: 8/8 (Kouki's `tasks.py test-data`, 2026-11-21)**
 - [x] Poisoned-future test passes (L1, L9)
 - [x] 100% line coverage on `engine.py`
 
@@ -386,7 +386,7 @@ Depends: E-6.
   `integer_positions=False`; synthetic markets for B1, B3, B4 at 0 and 10 bp
 - [x] `scripts/v3_crosscheck.py` writes `reports/crosscheck.md`: per run annualised return gap,
   daily correlation, max daily gap, and the gap decomposition of PLAN §9.3
-- [ ] Real-data version (research period) written, skipped until `prereg-v1` (C17) — **written; runs after the tag**
+- [x] Real-data version (research period) written, skipped until `prereg-v1` (C17) — **B1, B3, B4 pass at 0 bp after the bt-capital fix (DECISIONS 018)**
 
 Acceptance:
 - [x] At 0 bp: annualised return within 5 bp/yr and daily correlation > 0.9999, or the cause

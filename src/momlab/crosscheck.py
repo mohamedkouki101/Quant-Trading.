@@ -15,6 +15,12 @@ The engine instead trades exactly to the target and charges ``bps·Σ|Δw|`` to 
 comparison builds a replica of bt's rule (:func:`bt_convention`); if bt equals the replica to
 floating point, cause (b) explains the whole gap. Cash residuals (c) do not arise with
 fractional positions.
+
+bt sizes trades in dollars and accepts a result only within 1e-8 dollars (``np.isclose``'s
+default ``atol``). Once the book is worth about 1e9 dollars, float spacing exceeds that and
+bt's sizing loop never settles. bt's starting capital is therefore ``1e6 / max(1, peak engine
+NAV)``, so its value stays near 1e6 at most. Returns do not depend on the scale (fractional
+positions, commission proportional to traded value) (DECISIONS 018).
 """
 
 from __future__ import annotations
@@ -41,7 +47,8 @@ class BtCheck:
     ``ann_gap_bp``: engine minus bt annual return (bp/yr); ``corr``: daily correlation;
     ``max_abs_gap``: largest daily difference; ``weight_dev``: largest ``|w_bt − target|`` right
     after a fill; ``sizing_error``: largest ``|w_bt − w_replica|`` after a fill;
-    ``*_bt_convention``: bt vs the replica of bt's rule."""
+    ``*_bt_convention``: bt vs the replica of bt's rule; ``peak_nav``: the engine's largest NAV
+    (start 1), which sets bt's starting capital."""
 
     n_days: int
     ann_gap_bp: float
@@ -51,6 +58,7 @@ class BtCheck:
     sizing_error: float
     max_abs_gap_bt_convention: float
     ann_gap_bt_convention_bp: float
+    peak_nav: float
 
 
 def fill_targets(result: engine.RunResult, assets: list[str]) -> pd.DataFrame:
@@ -66,8 +74,11 @@ def order_targets(result: engine.RunResult, assets: list[str]) -> pd.DataFrame:
     return pd.DataFrame(rows, index=pd.DatetimeIndex(result.orders["ts"]), columns=assets)
 
 
-def run_bt(market: Market, weights: pd.DataFrame, bps: float) -> tuple[pd.Series, pd.DataFrame]:
-    """bt daily returns (on ``market.dates``) and its end-of-day security weights."""
+def run_bt(
+    market: Market, weights: pd.DataFrame, bps: float, initial_capital: float = 1e6
+) -> tuple[pd.Series, pd.DataFrame]:
+    """bt daily returns (on ``market.dates``) and its end-of-day security weights; bt starts
+    with ``initial_capital`` dollars."""
     import bt
 
     rets = np.nan_to_num(market.returns)
@@ -79,7 +90,13 @@ def run_bt(market: Market, weights: pd.DataFrame, bps: float) -> tuple[pd.Series
     def commissions(q: float, p: float) -> float:
         return abs(q) * p * bps / 1e4
 
-    test = bt.Backtest(strat, prices, commissions=commissions, integer_positions=False)
+    test = bt.Backtest(
+        strat,
+        prices,
+        commissions=commissions,
+        integer_positions=False,
+        initial_capital=initial_capital,
+    )
     out = bt.run(test).backtests["engine_targets"]
     daily = out.strategy.prices.pct_change().reindex(market.dates)
     sw = out.security_weights.reindex(index=market.dates, columns=market.assets).fillna(0.0)
@@ -127,7 +144,8 @@ def bt_crosscheck(config: RunConfig, market: Market, *, shift: bool = True) -> B
     res = engine.run(config, dh)
     fills = fill_targets(res, market.assets)
     fed = fills if shift else order_targets(res, market.assets)
-    bt_daily, bt_w = run_bt(market, fed, bps)
+    peak = max(1.0, float(res.daily["nav"].max()))
+    bt_daily, bt_w = run_bt(market, fed, bps, initial_capital=1e6 / peak)
     replica, rep_w = bt_convention(market, fills, bps)
     sel = market.dates >= fills.index[0]
     eng = res.daily["net"].to_numpy()[sel]
@@ -150,4 +168,5 @@ def bt_crosscheck(config: RunConfig, market: Market, *, shift: bool = True) -> B
         sizing_error=sizing,
         max_abs_gap_bt_convention=float(np.abs(rep - btr).max()),
         ann_gap_bt_convention_bp=(ann(rep) - ann(btr)) * 1e4,
+        peak_nav=peak,
     )

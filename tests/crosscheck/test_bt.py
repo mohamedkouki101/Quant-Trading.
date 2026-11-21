@@ -55,6 +55,23 @@ def test_unshifted_weights_show_the_timing_difference(market: synthetic.Market) 
     assert shifted.max_abs_gap < 1e-12 < 1e-4 < early.max_abs_gap
 
 
+@pytest.mark.parametrize("bps", [0.0, 10.0])
+def test_bt_survives_a_book_that_compounds_into_billions(bps: float) -> None:
+    """bt's trade-sizing loop accepts a result only within 1e-8 dollars; started with 1e6 it
+    breaks once the book is worth ~1e9 (float spacing > 1e-8). The cross-check scales bt's
+    starting capital so its peak value stays near 1e6; returns are scale-free."""
+    m = synthetic.planted_momentum(n_assets=20, n_years=30, beta=0.03, n_per_leg=5, seed=11)
+    c = crosscheck.bt_crosscheck(_cfg("b3", bps, m), m)
+    assert c.peak_nav > 1e4  # the engine book grew by more than 10,000x
+    if bps == 0.0:  # no commission: bt sizes in one step, exact to floating point
+        assert c.max_abs_gap < 1e-12 and c.max_abs_gap_bt_convention < 1e-12
+    else:
+        # With a commission bt iterates until within 1e-8 *dollars* of the amount; on a book
+        # that starts at 1e6 / peak_nav dollars that is a relative error of up to
+        # 1e-8 / (1e6 / peak_nav). Derived from bt's constant, not fitted.
+        assert c.max_abs_gap_bt_convention < 1e-8 / (1e6 / c.peak_nav)
+
+
 def _tagged() -> bool:
     try:
         out = subprocess.run(["git", "tag", "-l", "prereg-v1"], capture_output=True, text=True)

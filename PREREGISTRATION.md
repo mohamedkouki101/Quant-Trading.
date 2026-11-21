@@ -108,4 +108,11 @@ deleted.
 
 ## 7. Deviations
 
-_None yet._
+**D1 (2026-11-21, clarification, not a change).** The "Signal exists" threshold (Newey-West
+t > 3.0 on net monthly returns at 10 bp) is computed on monthly **excess** returns: net strategy
+return minus the risk-free rate, both compounded per calendar month. The text did not say
+whether RF is subtracted. The long-short book earns RF on its collateral, and that interest is
+not a momentum premium. Kouki chose this reading (option a) on 2026-11-21, after `prereg-v1`
+was tagged and before any strategy performance figure was computed or seen. The t-stat of
+raw net returns is reported next to it as a secondary, labelled number. Details:
+`docs/DECISIONS.md` entry 012 (c).

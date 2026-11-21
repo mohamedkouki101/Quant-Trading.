@@ -239,7 +239,9 @@ Entry format:
   "Newey-West t-stat of monthly net returns" and does not say whether RF is subtracted; the
   engine's long-short book earns RF on its collateral, so testing raw net returns would count
   the T-bill rate as momentum premium. Excess returns are the conservative reading (lower t).
-  The raw-net t can be reported next to it. **Flagged for Kouki** to confirm before D-4.
+  The raw-net t can be reported next to it. **Confirmed by Kouki on 2026-11-21 (option a)**,
+  before any strategy performance was computed; recorded as clarification D1 in
+  PREREGISTRATION.md §7.
   (d) The stationary bootstrap draws geometric block lengths (mean `mean_block`, wrapping at
   the end), resamples rows of 2-D input jointly, and seeds via `SeedSequence`.
 - Reason: The plan names the metrics but not these details; PLAN §9 cross-checks Sharpe,
@@ -346,3 +348,55 @@ Entry format:
   pytest.
 - Reason: PLAN §9.4.
 - Alternatives: a relative tolerance (1e-9 absolute is the plan's wording; metrics are O(1)).
+
+## 018. bt's starting capital is scaled to the engine's peak NAV
+- Date: 2026-11-21
+- Task: V-3 (real-data run after `prereg-v1`)
+- Decision: The first real-data run failed for B4 at 0 bp. bt raised "Potentially infinite
+  loop detected" on 1994-04-04, with the bt portfolio worth 1.15e9 dollars from a 1e6 start.
+  Cause, read from bt's source: `SecurityBase.allocate` repeats until
+  `np.isclose(outlay, amount, rtol=1e-16)`, whose default absolute tolerance is 1e-8 dollars.
+  Above about 1e8 dollars, float spacing is larger than that, so the loop can never settle.
+  B3 (peak about 7e8) happened to finish. `crosscheck.bt_crosscheck` now starts bt with
+  `1e6 / max(1, peak engine NAV)` dollars. bt's returns do not depend on scale (fractional
+  positions, proportional commission). New test
+  `test_bt_survives_a_book_that_compounds_into_billions`: it failed first with the same bt
+  error, and passes now.
+  With a commission, bt stops within 1e-8 dollars, so on a book whose value spans many orders
+  of magnitude its relative sizing error is up to `1e-8 / starting capital`. That test checks
+  this derived bound at 10 bp. The original synthetic tests keep 1e-12.
+- Reason: a numerical limit of bt, not an engine difference; the plan's real-data check
+  (0 bp, 5 bp/yr, correlation > 0.9999) then passes for B1, B3 and B4.
+- Alternatives: patching bt (we do not modify third-party code); dropping B4 from the
+  real-data check (hides the problem).
+
+## 019. Process pool for S1/S2 capped at 8 workers
+- Date: 2026-11-21
+- Task: V-1 (maintenance)
+- Decision: `synthetic.run_trials` uses at most 8 processes (`MAX_WORKERS`). With 16 (one per
+  core), `test_s2_planted_momentum_ci_coverage` failed with "DLL load failed … le fichier de
+  pagination est insuffisant": Windows ran out of commit memory (9.6 GB free at the time),
+  because each worker imports NumPy, pandas, SciPy and statsmodels. Seeds and results do not
+  depend on the number of workers (`pool.map` keeps seed order).
+- Reason: resource limit, not a change to any test criterion.
+- Alternatives: a memory-aware worker count (more code for little gain).
+
+## 020. D-4 momentum sanity gate: correlation 0.7864, pass
+- Date: 2026-11-21
+- Task: D-4
+- Result (from `scripts/d4_momentum_gate.py`, exit 0): own vectorised 12-1 industry long-short
+  (Ken French 49 VW monthly file; top 10 minus bottom 10, equal weight, gross, no costs) vs
+  the published Mom factor, holding months 1927-07-31 … 2005-12-31 (942 months):
+  **correlation 0.7864 > 0.5 → pass**. Chart: `reports/d4_gate.png` (hypothetical backtest).
+- Hand check of the 12-1 window (guards L2): Steel, holding month 1950-07. The window is
+  1949-07 … 1950-05 (11 months) with returns 0.0786, −0.0031, 0.0356, 0.0509, 0.0265, 0.0633,
+  0.0369, 0.0338, −0.0152, 0.0759, 0.0616. The script gives Π(1+R) − 1 = 0.5400487655, and
+  `mom_12_1` gives the same; plain Python on the 4-decimal values gives 0.540049. The skip
+  month 1950-06 (−0.0417) is not used.
+- Method notes: an industry with any missing month in its window gets no score (rule 3,
+  no filling); a month needs ≥ 20 scored industries. Toy tests in
+  `tests/unit/test_d4_gate.py` (window t−12 … t−2, skip month, missing month, long-short
+  return). While writing them I had the window of holding month 15 wrong (it still contains
+  month 3); the code was right and the test was corrected.
+- Not a result: nothing written to `results/` or the ledger. The gate was run after
+  `prereg-v1` (rule 7) and after Kouki fixed the HAC t reading (D1).

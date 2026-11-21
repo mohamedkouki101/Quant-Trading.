@@ -11,14 +11,14 @@ fill on.
 
 | Strategy | Cost (bp) | bt weights dated | Days | Ann. gap (bp/yr) | Daily corr | Max daily gap | Max weight vs target | bt vs replica: max daily gap | bt vs replica: max weight gap |
 |---|---|---|---|---|---|---|---|---|---|
-| B1 | 0 | fill date | 7804 | 0.0000 | 1.0000000000 | 1.44e-15 | 3.82e-17 | 1.67e-15 | 4.16e-17 |
-| B1 | 10 | fill date | 7804 | -0.0011 | 0.9999999996 | 9.99e-07 | 4.05e-06 | 1.11e-15 | 1.18e-14 |
-| B1 | 50 | fill date | 7804 | -0.0108 | 0.9999999714 | 2.49e-05 | 2.04e-05 | 1.78e-15 | 1.20e-14 |
-| B3 | 0 | fill date | 7566 | 0.0000 | 1.0000000000 | 1.55e-15 | 1.25e-16 | 1.55e-15 | 1.25e-16 |
+| B1 | 0 | fill date | 7804 | -0.0000 | 1.0000000000 | 1.55e-15 | 3.47e-17 | 1.67e-15 | 3.82e-17 |
+| B1 | 10 | fill date | 7804 | -0.0011 | 0.9999999996 | 9.99e-07 | 4.05e-06 | 2.00e-15 | 1.18e-14 |
+| B1 | 50 | fill date | 7804 | -0.0108 | 0.9999999714 | 2.49e-05 | 2.04e-05 | 1.55e-15 | 1.20e-14 |
+| B3 | 0 | fill date | 7566 | 0.0000 | 1.0000000000 | 1.33e-15 | 1.25e-16 | 1.33e-15 | 1.25e-16 |
 | B3 | 10 | fill date | 7566 | 0.1751 | 0.9999998336 | 2.42e-05 | 3.01e-04 | 1.78e-15 | 1.62e-14 |
-| B3 | 50 | fill date | 7566 | 2.4003 | 0.9999956001 | 1.22e-04 | 1.52e-03 | 4.44e-15 | 5.79e-14 |
-| B4 | 0 | fill date | 7566 | 0.0000 | 1.0000000000 | 1.33e-15 | 1.67e-16 | 1.44e-15 | 1.94e-16 |
-| B4 | 10 | fill date | 7566 | 0.3628 | 0.9999997855 | 5.16e-05 | 5.73e-04 | 2.00e-15 | 1.94e-14 |
+| B3 | 50 | fill date | 7566 | 2.4003 | 0.9999956001 | 1.22e-04 | 1.52e-03 | 3.77e-15 | 5.80e-14 |
+| B4 | 0 | fill date | 7566 | -0.0000 | 1.0000000000 | 1.55e-15 | 1.94e-16 | 1.33e-15 | 1.94e-16 |
+| B4 | 10 | fill date | 7566 | 0.3628 | 0.9999997855 | 5.16e-05 | 5.73e-04 | 1.78e-15 | 2.00e-14 |
 | B4 | 50 | fill date | 7566 | 4.7370 | 0.9999931345 | 2.89e-04 | 2.90e-03 | 6.44e-15 | 1.12e-13 |
 | B3 | 0 | order date (unshifted) | 7566 | 26.6345 | 0.9879587625 | 1.08e-02 | 1.02e-02 | 1.08e-02 | 1.02e-02 |
 
@@ -44,8 +44,20 @@ At 0 bp: annual return within 5 bp/yr and daily correlation > 0.9999: **pass** f
 - **(c) Cash residuals.** None: fractional positions (`integer_positions=False`).
 - **(d) Floating point.** The 0 bp rows: daily gaps of order 1e-15.
 
-## Real data
+## Real data (research period)
 
-Not run yet: strategy returns on real data wait for the `prereg-v1` tag (rule 7,
-correction C17). `tests/crosscheck/test_bt.py::test_bt_matches_engine_real_research_period`
-runs B1, B3 and B4 on the research period at 0 bp once the tag exists.
+Ken French 49 industries, value-weighted, 1926-07-01 to 2005-12-30,
+RF set to 0 in both (bt's cash earns nothing). Only engine-vs-bt gaps are shown, no
+performance figures.
+
+| Strategy | Cost (bp) | Days | Ann. gap (bp/yr) | Daily corr | Max daily gap | bt vs replica: max daily gap |
+|---|---|---|---|---|---|---|
+| B1 | 0 | 21095 | 0.0000 | 1.0000000000 | 1.67e-15 | 1.78e-15 |
+| B1 | 10 | 21095 | -0.0060 | 0.9999999997 | 6.98e-06 | 1.84e-11 |
+| B3 | 0 | 20821 | 0.0000 | 1.0000000000 | 1.55e-15 | 1.55e-15 |
+| B3 | 10 | 20821 | 0.3489 | 0.9999991568 | 4.57e-04 | 5.73e-13 |
+| B4 | 0 | 20821 | 0.0000 | 1.0000000000 | 1.55e-15 | 1.44e-15 |
+| B4 | 10 | 20821 | -0.3062 | 0.9999994762 | 1.06e-04 | 5.54e-12 |
+
+bt starts with `1e6 / peak engine NAV` dollars so its sizing loop stays within its
+1e-8-dollar tolerance (DECISIONS 018).
